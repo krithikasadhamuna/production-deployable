@@ -1,91 +1,41 @@
-# CodeGrey SOC Server - Production Dependencies with AI/ML Integration
-# Core web framework
+# Core Framework
 flask==2.3.3
 flask-cors==4.0.0
-
-# Database - PostgreSQL (Production)
-psycopg2-binary==2.9.7
-sqlalchemy==2.0.21  # Optional ORM support
-
-# Cloud Storage - AWS S3
-boto3==1.28.62
-botocore==1.31.62
-
-# HTTP and networking
-requests==2.31.0
-urllib3==2.0.4
-
-# JSON and data handling
-jsonify  # Part of Flask
-
-# Logging and utilities
-python-dateutil==2.8.2
-
-# Security
 werkzeug==2.3.7
 
-# AI and Machine Learning - Core Libraries
-numpy==1.24.3
-pandas==2.0.3
-scikit-learn==1.3.0
-joblib==1.3.2  # Model serialization
+# Database
+sqlite3-utils==3.35
+psycopg2-binary==2.9.7
 
-# ML Feature Engineering
-scipy==1.11.3
-matplotlib==3.7.2  # For model visualization
-seaborn==0.12.2  # Statistical plotting
+# AI & LangGraph
+langgraph==0.2.45
+langgraph-checkpoint==2.0.2
+langgraph-checkpoint-sqlite==2.0.1
+langchain==0.3.27
+langchain-community==0.3.0
+langchain-ollama==0.2.0
+aiosqlite==0.19.0
 
-# Network and system monitoring
-psutil==5.9.5
+# Security & Networking
+requests==2.31.0
+cryptography==41.0.4
+paramiko==3.3.1
 scapy==2.5.0
 
-# MITRE ATT&CK and threat intelligence
-stix2==3.0.1
-
-# Sigma rule processing
-pysigma==0.10.9
-pysigma-backend-splunk==0.4.0
-
-# Natural Language Processing for AI Reasoning
-nltk==3.8.1
-textblob==0.17.1  # Text analysis
-
-# Data validation and parsing
-pydantic==2.1.1
-
-# Configuration management
+# Monitoring & Analysis
+psutil==5.9.5
+python-dateutil==2.8.2
 pyyaml==6.0.1
 
-# Time series analysis (for log pattern detection)
-statsmodels==0.14.0
+# ML & Detection
+numpy==1.24.3
+scikit-learn==1.3.0
+pandas==2.0.3
 
-# Caching and performance
-redis==4.6.0  # Optional: For caching ML predictions
-memcached==1.59  # Alternative caching
+# Async Support
+asyncio==3.4.3
+aiohttp==3.8.5
 
-# Production WSGI server
-gunicorn==21.2.0
-
-# SSL/TLS in production
-pyopenssl==23.2.0
-
-# Monitoring and metrics
-prometheus-client==0.17.1  # Metrics collection
-psutil==5.9.5  # System monitoring
-
-# AI/LLM Integration - Required
-openai==1.3.0  # OpenAI API for fallback
-langchain==0.0.335
-langchain-community==0.0.6
-langchain-openai==0.0.2
-langgraph==0.0.20
-pyyaml==6.0.1  # For configuration files
-
-# Web Search & Threat Intelligence
-duckduckgo-search==3.9.6  # Privacy-focused web search
-requests==2.31.0  # HTTP requests for APIs
-urllib3==2.0.7  # URL handling
-
-# Development and testing (remove in production)
-pytest==7.4.2
-pytest-cov==4.1.0
+# Utils
+python-dotenv==1.0.0
+jsonschema==4.19.0

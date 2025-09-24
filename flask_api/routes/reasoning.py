@@ -1,6 +1,6 @@
 """
-🧠 AI Reasoning Agent APIs
-Implements AI chat interface and reasoning endpoints
+Enhanced AI Reasoning Agent APIs
+Implements AI chat interface with attack command capabilities
 """
 
 from flask import Blueprint, request, jsonify, current_app
@@ -8,7 +8,14 @@ from datetime import datetime, timezone
 import sqlite3
 import json
 import uuid
+import asyncio
+import sys
+from pathlib import Path
 from functools import wraps
+
+# Import enhanced reasoning engine
+sys.path.append(str(Path(__file__).parent.parent.parent / "agents" / "ai_reasoning_agent"))
+from enhanced_reasoning_engine import enhanced_reasoning_engine
 
 reasoning_bp = Blueprint('reasoning', __name__)
 
@@ -36,45 +43,56 @@ def get_db_connection():
 def ai_chat():
     """
     POST /api/v1/chat
-    AI reasoning chat interface
+    Enhanced AI reasoning chat interface with attack command capabilities
     """
     try:
         data = request.get_json()
         
-        if not data or 'message' not in data:
+        if not data or 'query' not in data and 'message' not in data:
             return jsonify({
                 "success": False,
-                "error": "Missing required field: message",
+                "error": "Missing required field: 'query' or 'message'",
                 "error_code": "INVALID_PARAMETERS"
             }), 400
         
-        message = data['message']
-        agent_id = data.get('agent_id', 'threatmind-ai-01')
-        context = data.get('context', {})
-        priority = data.get('priority', 'normal')
+        # Support both 'query' and 'message' for backward compatibility
+        user_query = data.get('query') or data.get('message')
+        user_context = data.get('context', {})
         
-        # Generate command ID
-        command_id = f"cmd_{uuid.uuid4().hex[:12]}"
-        timestamp = datetime.now(timezone.utc)
+        # Add request metadata to context
+        user_context.update({
+            'timestamp': datetime.now(timezone.utc).isoformat(),
+            'user_agent': request.headers.get('User-Agent', 'Unknown'),
+            'ip_address': request.remote_addr
+        })
         
-        # Analyze the message and generate appropriate response
-        response_data = _generate_ai_response(message, context)
+        # Process command using enhanced reasoning engine
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         
+        try:
+            result = loop.run_until_complete(
+                enhanced_reasoning_engine.process_chat_command(user_query, user_context)
+            )
+        finally:
+            loop.close()
+        
+        # Format response for API
         return jsonify({
-            "success": True,
-            "response": response_data["response"],
-            "command_id": command_id,
-            "agent_id": agent_id,
-            "timestamp": timestamp.isoformat(),
-            "analysis_data": response_data.get("analysis_data", {}),
-            "sources_analyzed": response_data.get("sources_analyzed", [])
+            "success": result['success'],
+            "response": result['response'],
+            "response_type": result.get('response_type', 'general'),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "data": result.get('data', {}),
+            "command_processed": True
         })
         
     except Exception as e:
         return jsonify({
             "success": False,
-            "error": str(e),
-            "error_code": "INTERNAL_ERROR"
+            "error": f"Chat processing failed: {str(e)}",
+            "error_code": "PROCESSING_ERROR",
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }), 500
 
 # Helper functions

@@ -1,5 +1,5 @@
 """
-🛡️ Detection Agent APIs
+Detection Agent APIs
 Implements detection results and threat monitoring endpoints
 """
 

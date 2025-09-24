@@ -1,5 +1,5 @@
 """
-🧪 Testing & Development APIs
+Testing & Development APIs
 Implements testing endpoints for development and demo purposes
 """
 

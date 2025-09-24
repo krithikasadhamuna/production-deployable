@@ -1,5 +1,5 @@
 """
-📊 System Monitoring APIs
+System Monitoring APIs
 Implements system status and metrics endpoints
 """
 

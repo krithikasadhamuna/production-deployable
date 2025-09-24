@@ -1,5 +1,5 @@
 """
-⚔️ Attack Agent APIs
+Attack Agent APIs
 Implements all attack scenario and timeline endpoints
 """
 

@@ -69,7 +69,7 @@ class DynamicAttackGenerator:
     
     async def generate_technique_commands(self, technique_id: str, target_platform: str = "any") -> List[DynamicAttackCommand]:
         """Generate commands for a MITRE technique from multiple sources"""
-        logger.info(f"🎯 Generating dynamic commands for {technique_id}")
+        logger.info(f"Generating dynamic commands for {technique_id}")
         
         commands = []
         
@@ -92,7 +92,7 @@ class DynamicAttackGenerator:
         # Validate and rank commands
         validated_commands = self._validate_and_rank_commands(commands)
         
-        logger.info(f"✅ Generated {len(validated_commands)} dynamic commands for {technique_id}")
+        logger.info(f"Generated {len(validated_commands)} dynamic commands for {technique_id}")
         return validated_commands
     
     async def _get_mitre_cti_commands(self, technique_id: str, platform: str) -> List[DynamicAttackCommand]:

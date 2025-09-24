@@ -1,5 +1,5 @@
 """
-🌐 Network Topology APIs
+Network Topology APIs
 Implements network topology and node management endpoints
 """
 

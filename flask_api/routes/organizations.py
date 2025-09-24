@@ -1,5 +1,5 @@
 """
-🏢 Organization Management APIs
+Organization Management APIs
 Implements organization and tenant management endpoints
 """
 

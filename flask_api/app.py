@@ -22,6 +22,12 @@ from routes.commands import commands_bp
 from routes.system import system_bp
 from routes.organizations import organizations_bp
 from routes.testing import testing_bp
+from routes.user_management import user_management_bp
+from routes.network_topology import network_topology_bp
+from routes.agent_communication import agent_comm_bp
+from routes.ai_attack import ai_attack_bp
+from routes.user_agent_management import user_agent_bp
+from routes.user_attack_control import user_attack_bp
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend access
@@ -35,6 +41,36 @@ def init_database():
     """Initialize SQLite database with required tables"""
     conn = sqlite3.connect(app.config['DATABASE'])
     cursor = conn.cursor()
+    
+    # User management tables
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS users (
+            id TEXT PRIMARY KEY,
+            email TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            first_name TEXT NOT NULL,
+            last_name TEXT,
+            organization_id TEXT NOT NULL,
+            status TEXT DEFAULT 'ACTIVE',
+            created_at TEXT,
+            last_login TEXT,
+            created_by TEXT
+        )
+    ''')
+    
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS agent_downloads (
+            id TEXT PRIMARY KEY,
+            user_id TEXT NOT NULL,
+            agent_type TEXT NOT NULL,
+            platform TEXT NOT NULL,
+            version TEXT NOT NULL,
+            download_timestamp TEXT NOT NULL,
+            ip_address TEXT,
+            user_agent TEXT,
+            FOREIGN KEY (user_id) REFERENCES users (id)
+        )
+    ''')
     
     # Agents table
     cursor.execute('''
@@ -52,7 +88,10 @@ def init_database():
             last_heartbeat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             network_element_type TEXT,
             security_zone TEXT,
-            organization_id TEXT DEFAULT 'org-123'
+            platform TEXT,
+            user_id TEXT,
+            organization_id TEXT DEFAULT 'org-123',
+            FOREIGN KEY (user_id) REFERENCES users (id)
         )
     ''')
     
@@ -166,6 +205,21 @@ def init_database():
         )
     ''')
     
+    # AI Attack workflows table
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS attack_workflows (
+            id TEXT PRIMARY KEY,
+            objective TEXT,
+            status TEXT DEFAULT 'initializing',
+            selected_scenario TEXT,  -- JSON object
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            approved_at TIMESTAMP,
+            completed_at TIMESTAMP,
+            cancelled_at TIMESTAMP,
+            results TEXT  -- JSON array
+        )
+    ''')
+    
     conn.commit()
     conn.close()
     print("✅ Database initialized successfully")
@@ -183,8 +237,15 @@ def require_auth(f):
             }), 401
         
         token = auth_header.split(' ')[1]
-        # Simple token validation (in production, use proper JWT validation)
-        if not token or len(token) < 10:
+        
+        # Production API key validation
+        VALID_API_KEYS = {
+            "soc-prod-fOpXLgHLmN66qvPgU5ZXDCj1YVQ9quiwWcNT6ECvPBs": "admin",
+            "soc-frontend-2024": "frontend",
+            "soc-agents-2024": "agent"
+        }
+        
+        if token not in VALID_API_KEYS:
             return jsonify({
                 'success': False,
                 'error': 'Invalid API token',
@@ -252,6 +313,12 @@ app.register_blueprint(commands_bp, url_prefix='/api')
 app.register_blueprint(system_bp, url_prefix='/api')
 app.register_blueprint(organizations_bp, url_prefix='/api')
 app.register_blueprint(testing_bp, url_prefix='/api')
+app.register_blueprint(user_management_bp, url_prefix='/api')
+app.register_blueprint(network_topology_bp, url_prefix='/api')
+app.register_blueprint(agent_comm_bp, url_prefix='/api')
+app.register_blueprint(ai_attack_bp, url_prefix='/api')
+app.register_blueprint(user_agent_bp, url_prefix='/api')
+app.register_blueprint(user_attack_bp, url_prefix='/api')
 
 if __name__ == '__main__':
     # Initialize database on startup
