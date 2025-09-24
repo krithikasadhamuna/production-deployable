@@ -389,3 +389,4 @@ CREATE INDEX CONCURRENTLY idx_threat_detections_severity ON threat_detections(se
 **Your SOC product will be fully operational with integrated AI/ML capabilities!** 🚀
 
 
+

@@ -216,3 +216,4 @@ VALUES
     ('detection-003', 'org-default-001', 'agent-002', 'Privilege Escalation', 'High', 88.9, 'T1078', 'Suspicious privilege escalation attempt detected', 'resolved');
 
 
+

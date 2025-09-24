@@ -368,3 +368,4 @@ def _get_mitre_techniques(technique_ids):
     
     return [technique_map.get(tid, {"id": tid, "name": "Unknown Technique", "tactic": "Unknown"}) for tid in technique_ids]
 
+

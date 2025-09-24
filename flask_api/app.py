@@ -259,13 +259,14 @@ if __name__ == '__main__':
     
     # Start Flask development server
     print("🚀 Starting CodeGrey SOC API Server...")
-    print("📊 API Documentation available at: http://localhost:8443")
+    print("📊 API Documentation available at: https://dev.codegrey.ai:443")
     print("🔐 All endpoints require Bearer token authentication")
     
     app.run(
         host='0.0.0.0',
-        port=8443,
+        port=443,
         debug=True,
         ssl_context='adhoc'  # Self-signed SSL for HTTPS
     )
+
 

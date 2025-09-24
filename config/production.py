@@ -8,7 +8,7 @@ class ProductionConfig:
     
     # Server settings
     HOST = os.getenv('SOC_HOST', '0.0.0.0')
-    PORT = int(os.getenv('SOC_PORT', '8443'))
+    PORT = int(os.getenv('SOC_PORT', '443'))
     DEBUG = False
     TESTING = False
     
@@ -39,5 +39,6 @@ config = {
     'production': ProductionConfig,
     'default': ProductionConfig
 }
+
 
 

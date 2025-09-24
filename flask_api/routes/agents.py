@@ -348,3 +348,4 @@ def _get_network_role(agent_type):
     }
     return roles.get(agent_type, 'endpoint')
 
+

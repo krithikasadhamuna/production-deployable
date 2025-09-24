@@ -160,7 +160,7 @@ if __name__ == '__main__':
     
     # Get configuration from environment variables
     host = os.getenv('SOC_HOST', '0.0.0.0')
-    port = int(os.getenv('SOC_PORT', '8443'))
+    port = int(os.getenv('SOC_PORT', '443'))
     debug = os.getenv('SOC_DEBUG', 'false').lower() == 'true'
     
     logger.info(f"Server configuration:")

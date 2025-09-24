@@ -5,10 +5,10 @@ services:
     build: .
     container_name: codegrey-soc-server
     ports:
-      - "8443:8443"
+      - "443:443"
     environment:
       - SOC_HOST=0.0.0.0
-      - SOC_PORT=8443
+      - SOC_PORT=443
       - SOC_DEBUG=false
       - SOC_SECRET_KEY=your-production-secret-key-change-this
       - SOC_DATABASE_PATH=/app/database/soc_production.db
@@ -17,7 +17,7 @@ services:
       - ./logs:/app/logs
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8443/api/system/status')"]
+      test: ["CMD", "python", "-c", "import requests; requests.get('https://localhost:443/api/system/status')"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -36,5 +36,6 @@ services:
   #   depends_on:
   #     - soc-server
   #   restart: unless-stopped
+
 
 

@@ -317,3 +317,4 @@ UPDATE network_topology SET parent_node_id = 'internal' WHERE node_id IN ('datac
 COMMIT;
 
 
+

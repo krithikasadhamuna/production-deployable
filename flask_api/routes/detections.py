@@ -391,3 +391,4 @@ def _calculate_detection_summary(detections):
         "avg_confidence": round(avg_confidence, 1)
     }
 
+
