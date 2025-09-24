@@ -1,0 +1,9 @@
+{
+  "model_type": "Attack Log Classifier (Windows vs Non-Windows)",
+  "train_accuracy": 0.8795,
+  "test_accuracy": 0.874,
+  "n_samples": 5000,
+  "n_features": 500,
+  "created": "2025-09-17T17:52:48.490288",
+  "description": "Binary classifier for Windows vs Non-Windows attack logs"
+}

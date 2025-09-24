@@ -1,0 +1,40 @@
+{
+  "ollama_status": false,
+  "setup_steps": [
+    "1. Install Ollama from https://ollama.ai/",
+    "2. Run: ollama pull llama3.2:3b (or mistral:7b)",
+    "3. Create custom cybersecurity model",
+    "4. Use the provided knowledge base for training"
+  ],
+  "recommended_models": [
+    {
+      "name": "llama3.2:3b",
+      "description": "Best for local deployment, good balance of performance and size",
+      "command": "ollama pull llama3.2:3b"
+    },
+    {
+      "name": "mistral:7b",
+      "description": "Alternative option with strong reasoning capabilities",
+      "command": "ollama pull mistral:7b"
+    },
+    {
+      "name": "codellama:7b",
+      "description": "Good for technical log analysis and code understanding",
+      "command": "ollama pull codellama:7b"
+    }
+  ],
+  "modelfile_template": "FROM llama3.2:3b\n\nPARAMETER temperature 0.7\nPARAMETER top_p 0.9\nPARAMETER top_k 40\n\nSYSTEM \"\"\"You are a cybersecurity expert AI assistant specialized in threat detection and analysis.\n\nYour knowledge includes:\n- MITRE ATT&CK Framework (823+ techniques processed)\n- Real attack patterns from 123,000+ log entries\n- Detection rules and analytics\n- Multi-platform security analysis\n\nProvide accurate, actionable cybersecurity guidance focusing on:\n- Threat detection and analysis\n- Attack technique identification  \n- Security best practices\n- Incident response procedures\n- Mitigation strategies\n\nBe precise, practical, and security-focused in all responses.\"\"\"\n",
+  "creation_commands": [
+    "# Save the modelfile above as 'CyberSecAI.modelfile'",
+    "ollama create cybersec-ai -f CyberSecAI.modelfile",
+    "# Test the model:",
+    "ollama run cybersec-ai 'Explain how to detect credential dumping attacks'"
+  ],
+  "training_data_ready": true,
+  "knowledge_base_stats": {
+    "mitre_techniques": 823,
+    "attack_logs": 123113,
+    "car_analytics": 102,
+    "system_logs": 16000
+  }
+}

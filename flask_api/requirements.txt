@@ -1,0 +1,22 @@
+# Flask API Server Requirements
+# Core Flask components
+Flask==3.0.0
+Flask-CORS==4.0.0
+
+# Database
+sqlite3
+
+# System monitoring
+psutil==5.9.6
+
+# Security and utilities
+PyJWT==2.8.0
+werkzeug==3.0.1
+
+# Development tools
+python-dotenv==1.0.0
+
+# Optional: For production deployment
+gunicorn==21.2.0
+gevent==23.9.1
+

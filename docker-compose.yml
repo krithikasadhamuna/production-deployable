@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  soc-server:
+    build: .
+    container_name: codegrey-soc-server
+    ports:
+      - "8443:8443"
+    environment:
+      - SOC_HOST=0.0.0.0
+      - SOC_PORT=8443
+      - SOC_DEBUG=false
+      - SOC_SECRET_KEY=your-production-secret-key-change-this
+      - SOC_DATABASE_PATH=/app/database/soc_production.db
+    volumes:
+      - ./database:/app/database
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8443/api/system/status')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add a reverse proxy (nginx)
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: codegrey-nginx
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf
+  #     - ./ssl:/etc/nginx/ssl
+  #   depends_on:
+  #     - soc-server
+  #   restart: unless-stopped
+
+

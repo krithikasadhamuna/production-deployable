@@ -1,0 +1,449 @@
+{
+  "mitre_techniques": [
+    {
+      "id": "T1003.008",
+      "name": "/etc/passwd and /etc/shadow",
+      "description": "Adversaries may attempt to dump the contents of <code>/etc/passwd</code> and <code>/etc/shadow</code> to enable offline password cracking. Most modern Linux operating systems use a combination of <code>/etc/passwd</code> and <code>/etc/shadow</code> to store user account information, including password hashes in <code>/etc/shadow</code>. By default, <code>/etc/shadow</code> is only readable by the root user.(Citation: Linux Password and Shadow File Formats)\n\nLinux stores user information such as...",
+      "platform": "['Linux']"
+    },
+    {
+      "id": "T1557.002",
+      "name": "ARP Cache Poisoning",
+      "description": "Adversaries may poison Address Resolution Protocol (ARP) caches to position themselves between the communication of two or more networked devices. This activity may be used to enable follow-on behaviors such as [Network Sniffing](https://attack.mitre.org/techniques/T1040) or [Transmitted Data Manipulation](https://attack.mitre.org/techniques/T1565/002).\n\nThe ARP protocol is used to resolve IPv4 addresses to link layer addresses, such as a media access control (MAC) address.(Citation: RFC826 ARP)...",
+      "platform": "['Linux', 'Windows', 'macOS']"
+    },
+    {
+      "id": "T1558.004",
+      "name": "AS-REP Roasting",
+      "description": "Adversaries may reveal credentials of accounts that have disabled Kerberos preauthentication by [Password Cracking](https://attack.mitre.org/techniques/T1110/002) Kerberos messages.(Citation: Harmj0y Roasting AS-REPs Jan 2017) \n\nPreauthentication offers protection against offline [Password Cracking](https://attack.mitre.org/techniques/T1110/002). When enabled, a user requesting access to a resource initiates communication with the Domain Controller (DC) by sending an Authentication Server Reques...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1548",
+      "name": "Abuse Elevation Control Mechanism",
+      "description": "Adversaries may circumvent mechanisms designed to control elevate privileges to gain higher-level permissions. Most modern systems contain native elevation control mechanisms that are intended to limit privileges that a user can perform on a machine. Authorization has to be granted to specific users in order to perform tasks that can be considered of higher risk.(Citation: TechNet How UAC Works)(Citation: sudo man page 2018) An adversary can perform several methods to take advantage of built-in ...",
+      "platform": "['Linux', 'macOS', 'Windows', 'IaaS', 'Office Suite', 'Identity Provider']"
+    },
+    {
+      "id": "T1134",
+      "name": "Access Token Manipulation",
+      "description": "Adversaries may modify access tokens to operate under a different user or system security context to perform actions and bypass access controls. Windows uses access tokens to determine the ownership of a running process. A user can manipulate access tokens to make a running process appear as though it is the child of a different process or belongs to someone other than the user that started the process. When this occurs, the process also takes on the security context associated with the new toke...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1546.008",
+      "name": "Accessibility Features",
+      "description": "Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by accessibility features. Windows contains accessibility features that may be launched with a key combination before a user has logged in (ex: when the user is on the Windows logon screen). An adversary can modify the way these programs are launched to get a command prompt or backdoor without logging in to the system.\n\nTwo common accessibility programs are <code>C:\\Windows\\System32\\sethc.exe...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1015",
+      "name": "Accessibility Features",
+      "description": "Windows contains accessibility features that may be launched with a key combination before a user has logged in (for example, when the user is on the Windows logon screen). An adversary can modify the way these programs are launched to get a command prompt or backdoor without logging in to the system.\n\nTwo common accessibility programs are <code>C:\\Windows\\System32\\sethc.exe</code>, launched when the shift key is pressed five times and <code>C:\\Windows\\System32\\utilman.exe</code>, launched when ...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1531",
+      "name": "Account Access Removal",
+      "description": "Adversaries may interrupt availability of system and network resources by inhibiting access to accounts utilized by legitimate users. Accounts may be deleted, locked, or manipulated (ex: changed credentials) to remove access to accounts. Adversaries may also subsequently log off and/or perform a [System Shutdown/Reboot](https://attack.mitre.org/techniques/T1529) to set malicious changes into place.(Citation: CarbonBlack LockerGoga 2019)(Citation: Unit42 LockerGoga 2019)\n\nIn Windows, [Net](https:...",
+      "platform": "['Linux', 'macOS', 'Windows', 'SaaS', 'IaaS', 'Office Suite', 'ESXi']"
+    },
+    {
+      "id": "T1087",
+      "name": "Account Discovery",
+      "description": "Adversaries may attempt to get a listing of valid accounts, usernames, or email addresses on a system or within a compromised environment. This information can help adversaries determine which accounts exist, which can aid in follow-on behavior such as brute-forcing, spear-phishing attacks, or account takeovers (e.g., [Valid Accounts](https://attack.mitre.org/techniques/T1078)).\n\nAdversaries may use several methods to enumerate accounts, including abuse of existing tools, built-in commands, and ...",
+      "platform": "['Windows', 'SaaS', 'IaaS', 'Linux', 'macOS', 'Office Suite', 'Identity Provider', 'ESXi']"
+    },
+    {
+      "id": "T1098",
+      "name": "Account Manipulation",
+      "description": "Adversaries may manipulate accounts to maintain and/or elevate access to victim systems. Account manipulation may consist of any action that preserves or modifies adversary access to a compromised account, such as modifying credentials or permission groups.(Citation: FireEye SMOKEDHAM June 2021) These actions could also include account activity designed to subvert security policies, such as performing iterative password updates to bypass password duration policies and preserve the life of compro...",
+      "platform": "['Windows', 'IaaS', 'Linux', 'macOS', 'SaaS', 'Network Devices', 'Containers', 'Office Suite', 'Identity Provider', 'ESXi']"
+    },
+    {
+      "id": "T1650",
+      "name": "Acquire Access",
+      "description": "Adversaries may purchase or otherwise acquire an existing access to a target system or network. A variety of online services and initial access broker networks are available to sell access to previously compromised systems.(Citation: Microsoft Ransomware as a Service)(Citation: CrowdStrike Access Brokers)(Citation: Krebs Access Brokers Fortune 500) In some cases, adversary groups may form partnerships to share compromised systems with each other.(Citation: CISA Karakurt 2022)\n\nFootholds to compr...",
+      "platform": "['PRE']"
+    },
+    {
+      "id": "T1583",
+      "name": "Acquire Infrastructure",
+      "description": "Adversaries may buy, lease, rent, or obtain infrastructure that can be used during targeting. A wide variety of infrastructure exists for hosting and orchestrating adversary operations. Infrastructure solutions include physical or cloud servers, domains, and third-party web services.(Citation: TrendmicroHideoutsLease) Some infrastructure providers offer free trial periods, enabling infrastructure acquisition at limited to no cost.(Citation: Free Trial PurpleUrchin) Additionally, botnets are avai...",
+      "platform": "['PRE']"
+    },
+    {
+      "id": "T1595",
+      "name": "Active Scanning",
+      "description": "Adversaries may execute active reconnaissance scans to gather information that can be used during targeting. Active scans are those where the adversary probes victim infrastructure via network traffic, as opposed to other forms of reconnaissance that do not involve direct interaction.\n\nAdversaries may perform different forms of active scanning depending on what information they seek to gather. These scans can also be performed in various ways, including using native features of network protocols...",
+      "platform": "['PRE']"
+    },
+    {
+      "id": "T1547.014",
+      "name": "Active Setup",
+      "description": "Adversaries may achieve persistence by adding a Registry key to the Active Setup of the local machine. Active Setup is a Windows mechanism that is used to execute programs when a user logs in. The value stored in the Registry key will be executed after a user logs into the computer.(Citation: Klein Active Setup 2010) These programs will be executed under the context of the user and will have the account's associated permissions level.\n\nAdversaries may abuse Active Setup by creating a key under <...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1137.006",
+      "name": "Add-ins",
+      "description": "Adversaries may abuse Microsoft Office add-ins to obtain persistence on a compromised system. Office add-ins can be used to add functionality to Office programs. (Citation: Microsoft Office Add-ins) There are different types of add-ins that can be used by the various Office products; including Word/Excel add-in Libraries (WLL/XLL), VBA add-ins, Office Component Object Model (COM) add-ins, automation add-ins, VBA Editor (VBE), Visual Studio Tools for Office (VSTO) add-ins, and Outlook add-ins. (C...",
+      "platform": "['Windows', 'Office Suite']"
+    },
+    {
+      "id": "T1098.001",
+      "name": "Additional Cloud Credentials",
+      "description": "Adversaries may add adversary-controlled credentials to a cloud account to maintain persistent access to victim accounts and instances within the environment.\n\nFor example, adversaries may add credentials for Service Principals and Applications in addition to existing legitimate credentials in Azure / Entra ID.(Citation: Microsoft SolarWinds Customer Guidance)(Citation: Blue Cloud of Death)(Citation: Blue Cloud of Death Video) These credentials include both x509 keys and passwords.(Citation: Mic...",
+      "platform": "['IaaS', 'SaaS', 'Identity Provider']"
+    },
+    {
+      "id": "T1098.003",
+      "name": "Additional Cloud Roles",
+      "description": "An adversary may add additional roles or permissions to an adversary-controlled cloud account to maintain persistent access to a tenant. For example, adversaries may update IAM policies in cloud-based environments or add a new global administrator in Office 365 environments.(Citation: AWS IAM Policies and Permissions)(Citation: Google Cloud IAM Policies)(Citation: Microsoft Support O365 Add Another Admin, October 2019)(Citation: Microsoft O365 Admin Roles) With sufficient permissions, a compromi...",
+      "platform": "['IaaS', 'SaaS', 'Office Suite', 'Identity Provider']"
+    },
+    {
+      "id": "T1098.006",
+      "name": "Additional Container Cluster Roles",
+      "description": "An adversary may add additional roles or permissions to an adversary-controlled user or service account to maintain persistent access to a container orchestration system. For example, an adversary with sufficient permissions may create a RoleBinding or a ClusterRoleBinding to bind a Role or ClusterRole to a Kubernetes account.(Citation: Kubernetes RBAC)(Citation: Aquasec Kubernetes Attack 2023) Where attribute-based access control (ABAC) is in use, an adversary with sufficient permissions may mo...",
+      "platform": "['Containers']"
+    },
+    {
+      "id": "T1098.002",
+      "name": "Additional Email Delegate Permissions",
+      "description": "Adversaries may grant additional permission levels to maintain persistent access to an adversary-controlled email account. \n\nFor example, the <code>Add-MailboxPermission</code> [PowerShell](https://attack.mitre.org/techniques/T1059/001) cmdlet, available in on-premises Exchange and in the cloud-based service Office 365, adds permissions to a mailbox.(Citation: Microsoft - Add-MailboxPermission)(Citation: FireEye APT35 2018)(Citation: Crowdstrike Hiding in Plain Sight 2018) In Google Workspace, d...",
+      "platform": "['Windows', 'Office Suite']"
+    },
+    {
+      "id": "T1098.007",
+      "name": "Additional Local or Domain Groups",
+      "description": "An adversary may add additional local or domain groups to an adversary-controlled account to maintain persistent access to a system or domain.\n\nOn Windows, accounts may use the `net localgroup` and `net group` commands to add existing users to local and domain groups.(Citation: Microsoft Net Localgroup)(Citation: Microsoft Net Group) On Linux, adversaries may use the `usermod` command for the same purpose.(Citation: Linux Usermod)\n\nFor example, accounts may be added to the local administrators g...",
+      "platform": "['Windows', 'macOS', 'Linux']"
+    },
+    {
+      "id": "T1557",
+      "name": "Adversary-in-the-Middle",
+      "description": "Adversaries may attempt to position themselves between two or more networked devices using an adversary-in-the-middle (AiTM) technique to support follow-on behaviors such as [Network Sniffing](https://attack.mitre.org/techniques/T1040), [Transmitted Data Manipulation](https://attack.mitre.org/techniques/T1565/002), or replay attacks ([Exploitation for Credential Access](https://attack.mitre.org/techniques/T1212)). By abusing features of common networking protocols that can determine the flow of ...",
+      "platform": "['Windows', 'macOS', 'Linux', 'Network Devices']"
+    },
+    {
+      "id": "T1182",
+      "name": "AppCert DLLs",
+      "description": "Dynamic-link libraries (DLLs) that are specified in the AppCertDLLs Registry key under <code>HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Session Manager</code> are loaded into every process that calls the ubiquitously used application programming interface (API) functions CreateProcess, CreateProcessAsUser, CreateProcessWithLoginW, CreateProcessWithTokenW, or WinExec. (Citation: Elastic Process Injection July 2017)\n\nSimilar to [Process Injection](https://attack.mitre.org/techniques/T1055...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1546.009",
+      "name": "AppCert DLLs",
+      "description": "Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by AppCert DLLs loaded into processes. Dynamic-link libraries (DLLs) that are specified in the <code>AppCertDLLs</code> Registry key under <code>HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\</code> are loaded into every process that calls the ubiquitously used application programming interface (API) functions <code>CreateProcess</code>, <code>CreateProcessAsUser</code>,...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1574.014",
+      "name": "AppDomainManager",
+      "description": "Adversaries may execute their own malicious payloads by hijacking how the .NET `AppDomainManager` loads assemblies. The .NET framework uses the `AppDomainManager` class to create and manage one or more isolated runtime environments (called application domains) inside a process to host the execution of .NET applications. Assemblies (`.exe` or `.dll` binaries compiled to run as .NET code) may be loaded into an application domain as executable code.(Citation: Microsoft App Domains) \n\nKnown as \"AppD...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1103",
+      "name": "AppInit DLLs",
+      "description": "Dynamic-link libraries (DLLs) that are specified in the AppInit_DLLs value in the Registry keys <code>HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows</code> or <code>HKEY_LOCAL_MACHINE\\Software\\Wow6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Windows</code> are loaded by user32.dll into every process that loads user32.dll. In practice this is nearly every program, since user32.dll is a very common library. (Citation: Elastic Process Injection July 2017) Similar to [Process...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1546.010",
+      "name": "AppInit DLLs",
+      "description": "Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by AppInit DLLs loaded into processes. Dynamic-link libraries (DLLs) that are specified in the <code>AppInit_DLLs</code> value in the Registry keys <code>HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows</code> or <code>HKEY_LOCAL_MACHINE\\Software\\Wow6432Node\\Microsoft\\Windows NT\\CurrentVersion\\Windows</code> are loaded by user32.dll into every process that loads user32....",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1059.002",
+      "name": "AppleScript",
+      "description": "Adversaries may abuse AppleScript for execution. AppleScript is a macOS scripting language designed to control applications and parts of the OS via inter-application messages called AppleEvents.(Citation: Apple AppleScript) These AppleEvent messages can be sent independently or easily scripted with AppleScript. These events can locate open windows, send keystrokes, and interact with almost any open application locally or remotely.\n\nScripts can be run from the command-line via <code>osascript /pa...",
+      "platform": "['macOS']"
+    },
+    {
+      "id": "T1155",
+      "name": "AppleScript",
+      "description": "macOS and OS X applications send AppleEvent messages to each other for interprocess communications (IPC). These messages can be easily scripted with AppleScript for local or remote IPC. Osascript executes AppleScript and any other Open Scripting Architecture (OSA) language scripts. A list of OSA languages installed on a system can be found by using the <code>osalang</code> program.\nAppleEvent messages can be sent independently or as part of a script. These events can locate open windows, send ke...",
+      "platform": "['macOS']"
+    },
+    {
+      "id": "T1527",
+      "name": "Application Access Token",
+      "description": "Adversaries may use application access tokens to bypass the typical authentication process and access restricted accounts, information, or services on remote systems. These tokens are typically stolen from users and used in lieu of login credentials.\n\nApplication access tokens are used to make authorized API requests on behalf of a user and are commonly used as a way to access resources in cloud-based applications and software-as-a-service (SaaS).(Citation: Auth0 - Why You Should Always Use Acce...",
+      "platform": "['SaaS', 'Office 365']"
+    },
+    {
+      "id": "T1550.001",
+      "name": "Application Access Token",
+      "description": "Adversaries may use stolen application access tokens to bypass the typical authentication process and access restricted accounts, information, or services on remote systems. These tokens are typically stolen from users or services and used in lieu of login credentials.\n\nApplication access tokens are used to make authorized API requests on behalf of a user or service and are commonly used to access resources in cloud, container-based applications, and software-as-a-service (SaaS).(Citation: Auth0...",
+      "platform": "['SaaS', 'Containers', 'IaaS', 'Office Suite', 'Identity Provider']"
+    },
+    {
+      "id": "T1017",
+      "name": "Application Deployment Software",
+      "description": "Adversaries may deploy malicious software to systems within a network using application deployment systems employed by enterprise administrators. The permissions required for this action vary by system configuration; local credentials may be sufficient with direct access to the deployment server, or specific domain credentials may be required. However, the system may require an administrative account to log in or to perform software deployment.\n\nAccess to a network-wide or enterprise-wide softwa...",
+      "platform": "['Linux', 'macOS', 'Windows']"
+    },
+    {
+      "id": "T1499.003",
+      "name": "Application Exhaustion Flood",
+      "description": "Adversaries may target resource intensive features of applications to cause a denial of service (DoS), denying availability to those applications. For example, specific features in web applications may be highly resource intensive. Repeated requests to those features may be able to exhaust system resources and deny access to the application or the server itself.(Citation: Arbor AnnualDoSreport Jan 2018)",
+      "platform": "['Windows', 'IaaS', 'Linux', 'macOS']"
+    },
+    {
+      "id": "T1071",
+      "name": "Application Layer Protocol",
+      "description": "Adversaries may communicate using OSI application layer protocols to avoid detection/network filtering by blending in with existing traffic. Commands to the remote system, and often the results of those commands, will be embedded within the protocol traffic between the client and server. \n\nAdversaries may utilize many different protocols, including those used for web browsing, transferring files, electronic mail, DNS, or publishing/subscribing. For connections that occur internally within an enc...",
+      "platform": "['Linux', 'macOS', 'Windows', 'Network Devices', 'ESXi']"
+    },
+    {
+      "id": "T1546.011",
+      "name": "Application Shimming",
+      "description": "Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by application shims. The Microsoft Windows Application Compatibility Infrastructure/Framework (Application Shim) was created to allow for backward compatibility of software as the operating system codebase changes over time. For example, the application shimming feature allows developers to apply fixes to applications (without rewriting code) that were created for Windows XP so that it will ...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1138",
+      "name": "Application Shimming",
+      "description": "The Microsoft Windows Application Compatibility Infrastructure/Framework (Application Shim) was created to allow for backward compatibility of software as the operating system codebase changes over time. For example, the application shimming feature allows developers to apply fixes to applications (without rewriting code) that were created for Windows XP so that it will work with Windows 10. (Citation: Elastic Process Injection July 2017) Within the framework, shims are created to act as a buffe...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1010",
+      "name": "Application Window Discovery",
+      "description": "Adversaries may attempt to get a listing of open application windows. Window listings could convey information about how the system is used.(Citation: Prevailion DarkWatchman 2021) For example, information about application windows could be used identify potential data to collect as well as identifying security tooling ([Security Software Discovery](https://attack.mitre.org/techniques/T1518/001)) to evade.(Citation: ESET Grandoreiro April 2020)\n\nAdversaries typically abuse system features for th...",
+      "platform": "['macOS', 'Windows', 'Linux']"
+    },
+    {
+      "id": "T1499.004",
+      "name": "Application or System Exploitation",
+      "description": "Adversaries may exploit software vulnerabilities that can cause an application or system to crash and deny availability to users. (Citation: Sucuri BIND9 August 2015) Some systems may automatically restart critical applications and services when crashes occur, but they can likely be re-exploited to cause a persistent denial of service (DoS) condition.\n\nAdversaries may exploit known or zero-day vulnerabilities to crash applications and/or systems, which may also lead to dependent applications and...",
+      "platform": "['Windows', 'IaaS', 'Linux', 'macOS']"
+    },
+    {
+      "id": "T1560",
+      "name": "Archive Collected Data",
+      "description": "An adversary may compress and/or encrypt data that is collected prior to exfiltration. Compressing the data can help to obfuscate the collected data and minimize the amount of data sent over the network.(Citation: DOJ GRU Indictment Jul 2018) Encryption can be used to hide information that is being exfiltrated from detection or make exfiltration less conspicuous upon inspection by a defender.\n\nBoth compression and encryption are done prior to exfiltration, and can be performed using a utility, 3...",
+      "platform": "['Linux', 'macOS', 'Windows']"
+    },
+    {
+      "id": "T1560.003",
+      "name": "Archive via Custom Method",
+      "description": "An adversary may compress or encrypt data that is collected prior to exfiltration using a custom method. Adversaries may choose to use custom archival methods, such as encryption with XOR or stream ciphers implemented with no external library or utility references. Custom implementations of well-known compression algorithms have also been used.(Citation: ESET Sednit Part 2)",
+      "platform": "['Linux', 'macOS', 'Windows']"
+    },
+    {
+      "id": "T1560.002",
+      "name": "Archive via Library",
+      "description": "An adversary may compress or encrypt data that is collected prior to exfiltration using 3rd party libraries. Many libraries exist that can archive data, including [Python](https://attack.mitre.org/techniques/T1059/006) rarfile (Citation: PyPI RAR), libzip (Citation: libzip), and zlib (Citation: Zlib Github). Most libraries include functionality to encrypt and/or compress data.\n\nSome archival libraries are preinstalled on systems, such as bzip2 on macOS and Linux, and zip on Windows. Note that th...",
+      "platform": "['Linux', 'macOS', 'Windows']"
+    },
+    {
+      "id": "T1560.001",
+      "name": "Archive via Utility",
+      "description": "Adversaries may use utilities to compress and/or encrypt collected data prior to exfiltration. Many utilities include functionalities to compress, encrypt, or otherwise package data into a format that is easier/more secure to transport.\n\nAdversaries may abuse various utilities to compress or encrypt data before exfiltration. Some third party utilities may be preinstalled, such as <code>tar</code> on Linux and macOS or <code>zip</code> on Windows systems. \n\nOn Windows, <code>diantz</code> or <cod...",
+      "platform": "['Linux', 'Windows', 'macOS']"
+    },
+    {
+      "id": "T1588.007",
+      "name": "Artificial Intelligence",
+      "description": "Adversaries may obtain access to generative artificial intelligence tools, such as large language models (LLMs), to aid various techniques during targeting. These tools may be used to inform, bolster, and enable a variety of malicious tasks, including conducting [Reconnaissance](https://attack.mitre.org/tactics/TA0043), creating basic scripts, assisting social engineering, and even developing payloads.(Citation: MSFT-AI) \n\nFor example, by utilizing a publicly available LLM an adversary is essent...",
+      "platform": "['PRE']"
+    },
+    {
+      "id": "T1573.002",
+      "name": "Asymmetric Cryptography",
+      "description": "Adversaries may employ a known asymmetric encryption algorithm to conceal command and control traffic rather than relying on any inherent protections provided by a communication protocol. Asymmetric cryptography, also known as public key cryptography, uses a keypair per party: one public that can be freely distributed, and one private. Due to how the keys are generated, the sender encrypts data with the receiver\u2019s public key and the receiver decrypts the data with their private key. This ensures...",
+      "platform": "['Linux', 'macOS', 'Windows', 'Network Devices', 'ESXi']"
+    },
+    {
+      "id": "T1055.004",
+      "name": "Asynchronous Procedure Call",
+      "description": "Adversaries may inject malicious code into processes via the asynchronous procedure call (APC) queue in order to evade process-based defenses as well as possibly elevate privileges. APC injection is a method of executing arbitrary code in the address space of a separate live process. \n\nAPC injection is commonly performed by attaching malicious code to the APC Queue (Citation: Microsoft APC) of a process's thread. Queued APC functions are executed when the thread enters an alterable state.(Citati...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1053.002",
+      "name": "At",
+      "description": "Adversaries may abuse the [at](https://attack.mitre.org/software/S0110) utility to perform task scheduling for initial or recurring execution of malicious code. The [at](https://attack.mitre.org/software/S0110) utility exists as an executable within Windows, Linux, and macOS for scheduling tasks at a specified time and date. Although deprecated in favor of [Scheduled Task](https://attack.mitre.org/techniques/T1053/005)'s [schtasks](https://attack.mitre.org/software/S0111) in Windows environments...",
+      "platform": "['Windows', 'Linux', 'macOS']"
+    },
+    {
+      "id": "T1053.001",
+      "name": "At (Linux)",
+      "description": "Adversaries may abuse the [at](https://attack.mitre.org/software/S0110) utility to perform task scheduling for initial, recurring, or future execution of malicious code. The [at](https://attack.mitre.org/software/S0110) command within Linux operating systems enables administrators to schedule tasks.(Citation: Kifarunix - Task Scheduling in Linux)\n\nAn adversary may use [at](https://attack.mitre.org/software/S0110) in Linux environments to execute programs at system startup or on a scheduled basis...",
+      "platform": "['Linux']"
+    },
+    {
+      "id": "T1123",
+      "name": "Audio Capture",
+      "description": "An adversary can leverage a computer's peripheral devices (e.g., microphones and webcams) or applications (e.g., voice and video call services) to capture audio recordings for the purpose of listening into sensitive conversations to gather information.(Citation: ESET Attor Oct 2019)\n\nMalware or scripts may be used to interact with the devices through an available API provided by the operating system or an application to capture audio. Audio files may be written to disk and exfiltrated later.",
+      "platform": "['Linux', 'macOS', 'Windows']"
+    },
+    {
+      "id": "T1131",
+      "name": "Authentication Package",
+      "description": "Windows Authentication Package DLLs are loaded by the Local Security Authority (LSA) process at system start. They provide support for multiple logon processes and multiple security protocols to the operating system. (Citation: MSDN Authentication Packages)\n\nAdversaries can use the autostart mechanism provided by LSA Authentication Packages for persistence by placing a reference to a binary in the Windows Registry location <code>HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\</code> with the key valu...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1547.002",
+      "name": "Authentication Package",
+      "description": "Adversaries may abuse authentication packages to execute DLLs when the system boots. Windows authentication package DLLs are loaded by the Local Security Authority (LSA) process at system start. They provide support for multiple logon processes and multiple security protocols to the operating system.(Citation: MSDN Authentication Packages)\n\nAdversaries can use the autostart mechanism provided by LSA authentication packages for persistence by placing a reference to a binary in the Windows Registr...",
+      "platform": "['Windows']"
+    },
+    {
+      "id": "T1059.010",
+      "name": "AutoHotKey & AutoIT",
+      "description": "Adversaries may execute commands and perform malicious tasks using AutoIT and AutoHotKey automation scripts. AutoIT and AutoHotkey (AHK) are scripting languages that enable users to automate Windows tasks. These automation scripts can be used to perform a wide variety of actions, such as clicking on buttons, entering text, and opening and closing programs.(Citation: AutoIT)(Citation: AutoHotKey)\n\nAdversaries may use AHK (`.ahk`) and AutoIT (`.au3`) scripts to execute malicious code on a victim's...",
+      "platform": "['Windows']"
+    }
+  ],
+  "car_analytics": [
+    {
+      "id": "CAR-2019-07-001",
+      "title": "Access Permission Modification",
+      "description": "Adversaries sometimes modify object access rights at the operating system level. There are varying motivations behind this action -  they may not want some files/objects to be changed on systems for persistence reasons and therefore provide admin only rights; also, they may want files to be accessib..."
+    },
+    {
+      "id": "CAR-2019-08-002",
+      "title": "Active Directory Dumping via NTDSUtil",
+      "description": "The NTDSUtil tool may be used to dump a Microsoft Active Directory database to disk for processing with a credential access tool such as Mimikatz. This is performed by launching `ntdsutil.exe` as a privileged user with command line arguments indicating that media should be created for offline Active..."
+    },
+    {
+      "id": "CAR-2015-07-001",
+      "title": "All Logins Since Last Boot",
+      "description": "Once a credential dumper like [mimikatz](https://attack.mitre.org/software/S0002) runs, every user logged on since boot is potentially compromised, because the credentials were accessed via the memory of `lsass.exe`. When such an event occurs, this analytic will give the forensic context to identify..."
+    },
+    {
+      "id": "CAR-2020-09-005",
+      "title": "AppInit DLLs",
+      "description": "Adversaries may establish persistence and/or elevate privileges by executing malicious content triggered by AppInit DLLs loaded into processes. Dynamic-link libraries (DLLs) that are specified in the AppInit_DLLs value in the Registry keys `HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVer..."
+    },
+    {
+      "id": "CAR-2021-05-001",
+      "title": "Attempt To Add Certificate To Untrusted Store",
+      "description": "Adversaries may add their own root certificate to the certificate store, to cause the web browser to trust that certificate and not display a security warning when it encounters the previously unseen certificate. This action may be the precursor to malicious activity."
+    },
+    {
+      "id": "CAR-2013-01-002",
+      "title": "Autorun Differences",
+      "description": "The Sysinternals tool [Autoruns](../sensors/autoruns) checks the registry and file system for known identify persistence mechanisms. It will output any tools identified, including built-in or added-on Microsoft functionality and third party software. Many of these locations are known by adversaries ..."
+    },
+    {
+      "id": "CAR-2021-05-003",
+      "title": "BCDEdit Failure Recovery Modification",
+      "description": "This search looks for flags passed to bcdedit.exe modifications to the built-in Windows error recovery boot configurations. This is typically used by ransomware to prevent recovery."
+    },
+    {
+      "id": "CAR-2021-05-004",
+      "title": "BITS Job Persistence",
+      "description": "The following query identifies Microsoft Background Intelligent Transfer Service utility `bitsadmin.exe` scheduling a BITS job to persist on an endpoint. The query identifies the parameters used to create, resume or add a file to a BITS job. Typically seen combined in a oneliner or ran in sequence. ..."
+    },
+    {
+      "id": "CAR-2021-05-005",
+      "title": "BITSAdmin Download File",
+      "description": "The following query identifies Microsoft Background Intelligent Transfer Service utility `bitsadmin.exe` using the `transfer` parameter to download a remote object. In addition, look for `download` or `upload` on the command-line, the switches are not required to perform a transfer. Capture any file..."
+    },
+    {
+      "id": "CAR-2021-05-002",
+      "title": "Batch File Write to System32",
+      "description": "While batch files are not inherently malicious, it is uncommon to see them created after OS installation, especially in the Windows directory. This analytic looks for the suspicious activity of a batch file being created within the C:\\Windows\\System32 directory tree. There will be only occasional fa..."
+    },
+    {
+      "id": "CAR-2020-11-001",
+      "title": "Boot or Logon Initialization Scripts",
+      "description": "Adversaries may schedule software to run whenever a user logs into the system; this is done to establish persistence and sometimes for lateral movement. This trigger is established through the registry key HKEY_CURRENT_USER\\Environment*UserInitMprLogonScript*. This signature looks edits to existing ..."
+    },
+    {
+      "id": "CAR-2020-11-010",
+      "title": "CMSTP",
+      "description": "CMSTP.exe is the Microsoft Connection Manager Profile Installer, which can be leveraged to setup listeners that will receive and install malware from remote sources in trusted fashion.\nWhen CMSTP.exe is seen in combination with an external connection, it is a good indication of this TTP."
+    },
+    {
+      "id": "CAR-2021-05-006",
+      "title": "CertUtil Download With URLCache and Split Arguments",
+      "description": "Certutil.exe may download a file from a remote destination using `-urlcache`. This behavior does require a URL to be passed on the command-line. In addition, `-f` (force) and `-split` (Split embedded ASN.1 elements, and save to files) will be used. It is not entirely common for `certutil.exe` to con..."
+    },
+    {
+      "id": "CAR-2021-05-007",
+      "title": "CertUtil Download With VerifyCtl and Split Arguments",
+      "description": "Certutil.exe may download a file from a remote destination using `-VerifyCtl`. This behavior does require a URL to be passed on the command-line. In addition, `-f` (force) and `-split` (Split embedded ASN.1 elements, and save to files) will be used. It is not entirely common for `certutil.exe` to co..."
+    },
+    {
+      "id": "CAR-2021-05-009",
+      "title": "CertUtil With Decode Argument",
+      "description": "CertUtil.exe may be used to `encode` and `decode` a file, including PE and script code. Encoding will convert a file to base64 with `-----BEGIN CERTIFICATE-----` and `-----END CERTIFICATE-----` tags. Malicious usage will include decoding a encoded file that was downloaded. Once decoded, it will be l..."
+    },
+    {
+      "id": "CAR-2021-05-008",
+      "title": "Certutil exe certificate extraction",
+      "description": "This search looks for arguments to certutil.exe indicating the manipulation or extraction of Certificate. This certificate can then be used to sign new authentication tokens specially inside Federated environments such as Windows ADFS."
+    },
+    {
+      "id": "CAR-2020-11-005",
+      "title": "Clear Powershell Console Command History",
+      "description": "Adversaries may attempt to conceal their tracks by deleting the history of commands run within the Powershell console, or turning off history saving to begin with. This analytic looks for several commands that would do this. This does not capture the event if it is done within the console itself; on..."
+    },
+    {
+      "id": "CAR-2021-01-003",
+      "title": "Clearing Windows Logs with Wevtutil",
+      "description": "In an attempt to clear traces after compromising a machine, threat actors often try to clear Windows Event logs. This is often done using \u201cwevtutil\u201d, a legitimate tool provided by Microsoft. This action interferes with event collection and notification, and may lead to a security event going undetec..."
+    },
+    {
+      "id": "CAR-2014-11-008",
+      "title": "Command Launched from WinLogon",
+      "description": "An adversary can use [accessibility features](https://attack.mitre.org/techniques/T1546/008) (Ease of Access), such as StickyKeys or Utilman, to launch a command shell from the logon screen and gain SYSTEM access. Since an adversary does not have physical access to the machine, this technique must b..."
+    },
+    {
+      "id": "CAR-2013-07-005",
+      "title": "Command Line Usage of Archiving Software",
+      "description": "Before [exfiltrating data](https://attack.mitre.org/tactics/TA0010) that an adversary has [collected](https://attack.mitre.org/tactics/TA0009), it is very likely that a [compressed archive](https://attack.mitre.org/techniques/T1560) will be created, so that transfer times are minimized and fewer fil..."
+    }
+  ],
+  "attack_signatures": [
+    {
+      "type": "Unknown",
+      "signature": "{\"time\": \"2023-01-23T21:29:11.6560796Z\", \"resourceId\": \"/tenants/fc69e276-e9e8-4af9-9002-1e410d77244e/providers/Microsoft.aadiam\", \"operationName\": \"Sign-in activity\", \"operationVersion\": \"1.0\", \"cate..."
+    },
+    {
+      "type": "Unknown",
+      "signature": "[2024-03-05 13:21:11,920]   INFO - er.https.HttpsConfiguratorImpl - HTTPS configurator initialization finished"
+    },
+    {
+      "type": "Windows Sysmon",
+      "signature": "<Event xmlns='http://schemas.microsoft.com/win/2004/08/events/event'><System><Provider Name='Microsoft-Windows-Sysmon' Guid='{5770385F-C22A-43E0-BF4C-06F5698FFBD9}'/><EventID>12</EventID><Version>2</V..."
+    },
+    {
+      "type": "Unknown",
+      "signature": "site=\"tomcat.example.com\" server=\"tomcat.example.com\" dest_port=\"80\" dest_ip=\"2.1.4.1\" src=\"1.1.1.3\" src_ip=\"1.1.1.3\" user=\"-\" time_local=\"25/Mar/2025:01:28:23 +0000\" protocol=\"HTTP/1.1\" status=\"200\" ..."
+    },
+    {
+      "type": "PowerShell",
+      "signature": "SourceName=Microsoft-Windows-PowerShell"
+    },
+    {
+      "type": "Windows Sysmon",
+      "signature": "<Event><System><Provider Name=\"Linux-Sysmon\" Guid=\"{ff032593-a8d3-4f13-b0d6-01fc615a0f97}\"/><EventID>1</EventID><Version>5</Version><Level>4</Level><Task>1</Task><Opcode>0</Opcode><Keywords>0x80000000..."
+    },
+    {
+      "type": "Windows Sysmon",
+      "signature": "<Event xmlns='http://schemas.microsoft.com/win/2004/08/events/event'><System><Provider Name='Microsoft-Windows-Sysmon' Guid='{5770385F-C22A-43E0-BF4C-06F5698FFBD9}'/><EventID>10</EventID><Version>3</V..."
+    },
+    {
+      "type": "Unknown",
+      "signature": "{\"time\": \"2023-01-23T21:29:12.1196559Z\", \"resourceId\": \"/tenants/fc69e276-e9e8-4af9-9002-1e410d77244e/providers/Microsoft.aadiam\", \"operationName\": \"Sign-in activity\", \"operationVersion\": \"1.0\", \"cate..."
+    },
+    {
+      "type": "Unknown",
+      "signature": "{\"time\": \"2023-10-27T19:04:57.7505121Z\", \"resourceId\": \"/tenants/75243ab2-44f8-435c-a7a6-b479385df6d4/providers/Microsoft.aadiam\", \"operationName\": \"Sign-in activity\", \"operationVersion\": \"1.0\", \"cate..."
+    },
+    {
+      "type": "Unknown",
+      "signature": "{\"endtime\":\"2022-04-06T13:01:59.877662Z\",\"timestamp\":\"2022-04-06T13:01:59.877463Z\",\"bytes\":772,\"bytes_in\":246,\"bytes_out\":526,\"dest_content\":\"<?xml version=\\\"1.0\\\" encoding=\\\"iso-8859-1\\\"?>\\n<!DOCTYPE..."
+    }
+  ],
+  "created": "2025-09-17T17:52:50.760145"
+}
