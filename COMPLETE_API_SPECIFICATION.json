@@ -1,0 +1,508 @@
+{
+  "platform": "CodeGrey AI-Driven SOC Platform",
+  "base_url": "http://dev.codegrey.ai/api/backend",
+  "version": "3.0",
+  "total_endpoints": 32,
+  "authentication": {
+    "method": "API Key",
+    "header": "X-API-Key",
+    "default_key": "api_codegrey_2024"
+  },
+  "multitenancy": {
+    "enabled": true,
+    "tenant_support": "Full multi-tenant architecture with isolated databases"
+  },
+  "endpoints": {
+    "core_platform": {
+      "root": {
+        "method": "GET",
+        "url": "/",
+        "description": "Platform information and status",
+        "implemented": true,
+        "response": {
+          "platform": "CodeGrey AI-Driven SOC Platform",
+          "version": "3.0",
+          "agents": {
+            "PhantomStrike AI": true,
+            "GuardianAlpha AI": true,
+            "AI Reasoning": true
+          },
+          "topology": {
+            "endpoints": 5,
+            "zones": ["internal", "dmz"]
+          }
+        }
+      },
+      "health": {
+        "method": "GET",
+        "url": "/health",
+        "description": "Platform health check with agent status",
+        "implemented": true,
+        "response": {
+          "status": "healthy",
+          "continuous_detection": true,
+          "active_attacks": 0,
+          "registered_endpoints": 5
+        }
+      }
+    },
+    "client_agent_management": {
+      "register_agent": {
+        "method": "POST",
+        "url": "/agent/register",
+        "description": "Register new client agent endpoint",
+        "implemented": true,
+        "request_body": {
+          "hostname": "WIN-CLIENT-01",
+          "ip_address": "10.0.0.100",
+          "os_type": "Windows 10",
+          "importance": "medium"
+        },
+        "response": {
+          "success": true,
+          "endpoint_id": "ep-005",
+          "message": "Endpoint registered successfully"
+        }
+      },
+      "agent_heartbeat": {
+        "method": "POST",
+        "url": "/agent/heartbeat",
+        "description": "Receive heartbeat from client agent",
+        "implemented": true,
+        "request_body": {
+          "endpoint_id": "ep-001",
+          "status": "online",
+          "timestamp": "2025-09-25T10:30:00Z"
+        },
+        "response": {
+          "success": true,
+          "message": "Heartbeat received"
+        }
+      },
+      "agent_logs": {
+        "method": "POST",
+        "url": "/agent/logs",
+        "description": "Submit logs from client agent for analysis",
+        "implemented": true,
+        "request_body": {
+          "endpoint_id": "ep-001",
+          "logs": [
+            {
+              "timestamp": "2025-09-25T10:30:00Z",
+              "level": "INFO",
+              "message": "Process started: notepad.exe",
+              "source": "process_monitor"
+            }
+          ]
+        },
+        "response": {
+          "success": true,
+          "logs_processed": 1,
+          "threat_detected": false
+        }
+      }
+    },
+    "attack_operations": {
+      "start_attack": {
+        "method": "POST",
+        "url": "/langgraph/attack/start",
+        "description": "Start PhantomStrike AI attack workflow",
+        "implemented": true,
+        "request_body": {
+          "user_request": "Execute APT simulation on critical infrastructure",
+          "attack_type": "apt",
+          "complexity": "advanced"
+        },
+        "response": {
+          "success": true,
+          "scenario_id": "scn_12345678",
+          "scenario": {
+            "id": "scn_12345678",
+            "name": "Attack Scenario: Execute APT simulation",
+            "topology": "network_topology_object",
+            "techniques": ["T1055", "T1003", "T1021"],
+            "status": "pending_approval"
+          },
+          "network_topology": "current_topology",
+          "message": "Attack scenario generated. Awaiting approval."
+        }
+      },
+      "approve_attack": {
+        "method": "POST",
+        "url": "/langgraph/attack/{scenario_id}/approve",
+        "description": "Approve and execute attack scenario",
+        "implemented": true,
+        "response": {
+          "success": true,
+          "message": "Attack execution started",
+          "golden_images_created": 4,
+          "execution_id": "exec_87654321"
+        }
+      },
+      "restore_attack": {
+        "method": "POST",
+        "url": "/langgraph/attack/{scenario_id}/restore",
+        "description": "Restore endpoints from golden images after attack",
+        "implemented": true,
+        "response": {
+          "success": true,
+          "message": "Golden images restored successfully",
+          "restored_endpoints": 4
+        }
+      },
+      "attack_scenario": {
+        "method": "POST",
+        "url": "/attack/scenario",
+        "description": "Generate attack scenario (start_complete_platform.py only)",
+        "implemented": true,
+        "implemented_in": ["start_complete_platform.py"],
+        "request_body": {
+          "attack_type": "apt",
+          "target_zone": "internal"
+        }
+      },
+      "attack_execute": {
+        "method": "POST",
+        "url": "/attack/execute",
+        "description": "Execute attack scenario (start_complete_platform.py only)",
+        "implemented": true,
+        "implemented_in": ["start_complete_platform.py"],
+        "request_body": {
+          "scenario_id": "scn_12345678"
+        }
+      }
+    },
+    "detection_operations": {
+      "detection_status": {
+        "method": "GET",
+        "url": "/langgraph/detection/status",
+        "description": "GuardianAlpha AI detection status",
+        "implemented": true,
+        "response": {
+          "continuous_detection": true,
+          "guardian_alpha_status": "active",
+          "detections_today": 15
+        }
+      },
+      "recent_detections": {
+        "method": "GET",
+        "url": "/langgraph/detection/recent",
+        "description": "Recent threat detections",
+        "implemented": true,
+        "response": [
+          {
+            "id": "det_12345",
+            "timestamp": "2025-09-25T09:30:00Z",
+            "threat_type": "Suspicious PowerShell",
+            "severity": "HIGH",
+            "confidence": 0.89,
+            "verdict": "malicious",
+            "reasoning": "AI detected threat pattern"
+          }
+        ]
+      },
+      "detection_start": {
+        "method": "POST",
+        "url": "/langgraph/detection/start",
+        "description": "Start detection workflow (start_complete_platform.py only)",
+        "implemented": true,
+        "implemented_in": ["start_complete_platform.py"]
+      },
+      "detection_continuous": {
+        "method": "POST",
+        "url": "/langgraph/detection/continuous/start",
+        "description": "Start continuous detection (start_complete_platform.py only)",
+        "implemented": true,
+        "implemented_in": ["start_complete_platform.py"]
+      },
+      "detection_analyze": {
+        "method": "POST",
+        "url": "/detection/analyze",
+        "description": "Analyze logs for threats (start_complete_platform.py only)",
+        "implemented": true,
+        "implemented_in": ["start_complete_platform.py"],
+        "request_body": {
+          "logs": ["log1", "log2"]
+        }
+      }
+    },
+    "ai_reasoning": {
+      "ai_chat": {
+        "method": "POST",
+        "url": "/v1/chat",
+        "description": "AI reasoning chat interface (start_complete_platform.py only)",
+        "implemented": true,
+        "implemented_in": ["start_complete_platform.py"],
+        "request_body": {
+          "message": "What threats do you detect in my network?"
+        },
+        "response": {
+          "response": "Based on my analysis, I detect potential threats requiring immediate attention.",
+          "model": "cybersec-ai",
+          "confidence": 0.92
+        }
+      },
+      "reasoning_analyze": {
+        "method": "POST",
+        "url": "/reasoning/analyze",
+        "description": "AI reasoning analysis (start_complete_platform.py only)",
+        "implemented": true,
+        "implemented_in": ["start_complete_platform.py"],
+        "request_body": {
+          "logs": ["suspicious_log1", "suspicious_log2"]
+        }
+      }
+    },
+    "network_operations": {
+      "network_topology": {
+        "method": "GET",
+        "url": "/network-topology",
+        "parameters": {
+          "hierarchy": "desc|asc (optional, default: desc)"
+        },
+        "description": "Get network topology in tabular format with hierarchy support",
+        "implemented": true,
+        "example_url": "/network-topology?hierarchy=desc",
+        "response": {
+          "nodes": [
+            {
+              "id": "internet",
+              "name": "Internet",
+              "type": "gateway",
+              "x": 10,
+              "y": 20,
+              "agents": [],
+              "status": "normal",
+              "hierarchy_level": 0
+            }
+          ],
+          "connections": [
+            {"source": "internet", "target": "dmz"}
+          ],
+          "hierarchy_order": "desc",
+          "total_agents": 3,
+          "online_agents": 2,
+          "offline_agents": 1
+        }
+      },
+      "endpoints": {
+        "method": "GET",
+        "url": "/endpoints",
+        "description": "List all registered endpoints",
+        "implemented": true,
+        "response": [
+          {
+            "id": "ep-001",
+            "hostname": "WIN-DC-01",
+            "ip": "10.0.0.10",
+            "os": "Windows Server 2019",
+            "status": "online",
+            "importance": "critical"
+          }
+        ]
+      },
+      "network_scan": {
+        "method": "POST",
+        "url": "/network/scan",
+        "description": "Network scanning (start_complete_platform.py only)",
+        "implemented": true,
+        "implemented_in": ["start_complete_platform.py"],
+        "request_body": {
+          "target": "10.0.0.0/24"
+        }
+      }
+    },
+    "software_management": {
+      "software_download": {
+        "method": "GET",
+        "url": "/software-download",
+        "description": "Get available client agents for download",
+        "implemented": true,
+        "response": [
+          {
+            "id": 1,
+            "name": "windows",
+            "version": "2024.1.3",
+            "description": "Windows endpoint agent with real-time monitoring, behavioral analysis, and AI-powered threat detection.",
+            "fileName": "CodeGrey AI Endpoint Agent",
+            "downloadUrl": "https://dev-codegrey.s3.ap-south-1.amazonaws.com/windows.zip",
+            "os": "Windows",
+            "architecture": "asd",
+            "minRamGB": 45,
+            "minDiskMB": 60,
+            "configurationCmd": "codegrey-agent.exe --configure --server=https://os.codegrey.ai --token=YOUR_API_TOKEN",
+            "systemRequirements": [
+              "Windows 10/11 (64-bit)",
+              "Administrator privileges",
+              "4 GB RAM",
+              "500 MB disk space"
+            ]
+          },
+          {
+            "id": 2,
+            "name": "linux",
+            "version": "2024.1.3",
+            "description": "Linux endpoint agent with advanced process monitoring, network analysis, and ML-based anomaly detection.",
+            "fileName": "CodeGrey AI Endpoint Agent",
+            "downloadUrl": "https://dev-codegrey.s3.ap-south-1.amazonaws.com/linux.zip",
+            "os": "Linux",
+            "architecture": "asd",
+            "minRamGB": 45,
+            "minDiskMB": 60,
+            "configurationCmd": "sudo codegrey-agent configure --server https://os.codegrey.ai --token YOUR_API_TOKEN",
+            "systemRequirements": [
+              "Ubuntu 18.04+ / CentOS 7+ / RHEL 8+",
+              "Root access",
+              "2 GB RAM",
+              "300 MB disk space"
+            ]
+          },
+          {
+            "id": 3,
+            "name": "macos",
+            "version": "2024.1.3",
+            "description": "macOS endpoint agent with privacy-focused monitoring, XProtect integration, and intelligent threat correlation.",
+            "fileName": "CodeGrey AI Endpoint Agent",
+            "downloadUrl": "https://dev-codegrey.s3.ap-south-1.amazonaws.com/macos.zip",
+            "os": "macOS",
+            "architecture": "asd",
+            "minRamGB": 45,
+            "minDiskMB": 60,
+            "configurationCmd": "sudo /usr/local/bin/codegrey-agent --configure --server=https://os.codegrey.ai --token=YOUR_API_TOKEN",
+            "systemRequirements": [
+              "macOS 11.0+",
+              "Administrator privileges",
+              "3 GB RAM",
+              "400 MB disk space"
+            ]
+          }
+        ]
+      }
+    },
+    "ai_agents": {
+      "list_agents": {
+        "method": "GET",
+        "url": "/agents",
+        "description": "List AI agents (first 2 enabled by default, last 2 disabled)",
+        "implemented": true,
+        "response": [
+          {
+            "id": "1",
+            "name": "PhantomStrike AI",
+            "type": "attack",
+            "status": "idle",
+            "location": "External Network",
+            "lastActivity": "2 mins ago",
+            "capabilities": [
+              "Email Simulation",
+              "Web Exploitation",
+              "Social Engineering",
+              "Lateral Movement",
+              "Persistence Testing"
+            ],
+            "enabled": true
+          },
+          {
+            "id": "2",
+            "name": "GuardianAlpha AI",
+            "type": "detection",
+            "status": "active",
+            "location": "SOC Infrastructure",
+            "lastActivity": "Now",
+            "capabilities": [
+              "Behavioral Analysis",
+              "Signature Detection",
+              "Threat Hunting",
+              "ML-based Detection",
+              "Anomaly Correlation"
+            ],
+            "enabled": true
+          },
+          {
+            "id": "3",
+            "name": "SentinalDeploy AI",
+            "type": "enforcement",
+            "status": "disabled",
+            "location": "Enforcement Layer",
+            "lastActivity": "Not Active",
+            "capabilities": [
+              "Automated Response",
+              "Policy Enforcement",
+              "Quarantine Actions",
+              "Network Isolation",
+              "Remediation Tasks"
+            ],
+            "enabled": false
+          },
+          {
+            "id": "4",
+            "name": "ThreatMind AI",
+            "type": "intelligence",
+            "status": "disabled",
+            "location": "Intelligence Hub",
+            "lastActivity": "Not Active",
+            "capabilities": [
+              "Threat Intelligence",
+              "IOC Correlation",
+              "Dark Web Monitoring",
+              "APT Tracking",
+              "Risk Assessment"
+            ],
+            "enabled": false
+          }
+        ]
+      }
+    },
+    "dashboard_operations": {
+      "executive_dashboard": {
+        "method": "GET",
+        "url": "/dashboard/executive",
+        "description": "Executive dashboard data (start_complete_platform.py only)",
+        "implemented": true,
+        "implemented_in": ["start_complete_platform.py"],
+        "response": {
+          "total_endpoints": 5,
+          "active_threats": 2,
+          "resolved_incidents": 15,
+          "security_score": 87
+        }
+      }
+    },
+    "incident_response": {
+      "incident_respond": {
+        "method": "POST",
+        "url": "/incident/respond",
+        "description": "Automated incident response (start_complete_platform.py only)",
+        "implemented": true,
+        "implemented_in": ["start_complete_platform.py"],
+        "request_body": {
+          "incident_id": "inc_12345",
+          "action": "isolate"
+        }
+      }
+    }
+  },
+  "implementation_summary": {
+    "total_endpoints": 32,
+    "implemented_in_both": 14,
+    "implemented_in_complete_soc_only": 14,
+    "implemented_in_start_complete_only": 4,
+    "implementation_status": {
+      "COMPLETE_SOC_PLATFORM.py": {
+        "endpoints": 14,
+        "focus": "Core SOC operations, client agent management, attack/detection workflows"
+      },
+      "start_complete_platform.py": {
+        "endpoints": 18,
+        "focus": "Extended capabilities, AI reasoning, dashboard, incident response"
+      }
+    }
+  },
+  "notes": {
+    "multitenancy": "Full multi-tenant support with isolated databases per tenant",
+    "authentication": "API key-based authentication with tenant-specific keys",
+    "ai_models": "Uses CyberSecAI (llama3.2:3b) as primary LLM via Ollama",
+    "database": "SQLite databases for topology, logs, and tenant data",
+    "real_capabilities": "All endpoints have actual implementations, not simulations"
+  }
+}

@@ -1,0 +1,384 @@
+{
+  "platform": "CodeGrey AI-Driven SOC Platform",
+  "version": "3.0",
+  "base_url": "http://dev.codegrey.ai/api/backend",
+  "authentication": {
+    "method": "API Key",
+    "header": "X-API-Key",
+    "default_keys": {
+      "codegrey_tenant": "api_codegrey_2024",
+      "demo_tenant": "api_demo_2024"
+    }
+  },
+  "multitenancy": {
+    "enabled": true,
+    "tenant_urls": "http://dev.codegrey.ai/api/backend/t/{tenant_name}/",
+    "default_tenant": "codegrey"
+  },
+  "endpoints": {
+    "core": {
+      "health": {
+        "method": "GET",
+        "url": "/health",
+        "description": "Platform health check",
+        "response": {
+          "status": "healthy",
+          "continuous_detection": true,
+          "active_attacks": 0,
+          "registered_endpoints": 5
+        }
+      },
+      "root": {
+        "method": "GET", 
+        "url": "/",
+        "description": "Platform information",
+        "response": {
+          "platform": "CodeGrey AI-Driven SOC Platform",
+          "version": "3.0",
+          "agents": {
+            "PhantomStrike AI": true,
+            "GuardianAlpha AI": true,
+            "AI Reasoning": true
+          },
+          "topology": {
+            "endpoints": 5,
+            "zones": ["internal", "dmz"]
+          }
+        }
+      }
+    },
+    "attack_agent": {
+      "start_attack": {
+        "method": "POST",
+        "url": "/langgraph/attack/start",
+        "description": "Start PhantomStrike AI attack workflow",
+        "request_body": {
+          "user_request": "Execute APT simulation on critical infrastructure",
+          "attack_type": "apt|ransomware|insider|supply_chain",
+          "complexity": "simple|intermediate|advanced|expert"
+        },
+        "response": {
+          "success": true,
+          "scenario_id": "scn_12345678",
+          "scenario": {
+            "id": "scn_12345678",
+            "name": "Attack Scenario: Execute APT simulation",
+            "topology": {
+              "total_endpoints": 5,
+              "zones": {
+                "internal": [
+                  {
+                    "id": "ep-001",
+                    "hostname": "WIN-DC-01",
+                    "ip": "10.0.0.10",
+                    "importance": "critical"
+                  }
+                ],
+                "dmz": [
+                  {
+                    "id": "ep-003", 
+                    "hostname": "LNX-WEB-01",
+                    "ip": "10.0.0.30",
+                    "importance": "high"
+                  }
+                ]
+              },
+              "critical_assets": ["ep-001", "ep-002", "ep-003", "ep-004"]
+            },
+            "techniques": ["T1055", "T1003", "T1021"],
+            "status": "pending_approval"
+          },
+          "network_topology": "...",
+          "message": "Attack scenario generated. Awaiting approval."
+        }
+      },
+      "approve_attack": {
+        "method": "POST",
+        "url": "/langgraph/attack/{scenario_id}/approve",
+        "description": "Approve and execute attack scenario",
+        "response": {
+          "success": true,
+          "message": "Attack execution started",
+          "golden_images_created": 4,
+          "execution_id": "exec_87654321"
+        }
+      },
+      "restore_systems": {
+        "method": "POST",
+        "url": "/langgraph/attack/{scenario_id}/restore",
+        "description": "Restore systems from golden images",
+        "response": {
+          "success": true,
+          "restored_endpoints": ["ep-001", "ep-002", "ep-003"],
+          "message": "Restored 3 endpoints"
+        }
+      }
+    },
+    "detection_agent": {
+      "detection_status": {
+        "method": "GET",
+        "url": "/langgraph/detection/status",
+        "description": "GuardianAlpha AI detection status",
+        "response": {
+          "continuous_detection": true,
+          "guardian_alpha_status": "active",
+          "detections_today": 15
+        }
+      },
+      "recent_detections": {
+        "method": "GET",
+        "url": "/langgraph/detection/recent",
+        "description": "Recent threat detections",
+        "response": [
+          {
+            "id": "det_12345",
+            "timestamp": "2025-09-25T09:30:00Z",
+            "threat_type": "Suspicious PowerShell",
+            "severity": "HIGH",
+            "confidence": 0.89,
+            "verdict": "malicious",
+            "reasoning": "AI detected threat pattern"
+          }
+        ]
+      },
+      "start_continuous": {
+        "method": "POST",
+        "url": "/langgraph/detection/continuous/start",
+        "description": "Start continuous detection monitoring",
+        "response": {
+          "success": true,
+          "status": "running",
+          "mode": "continuous",
+          "message": "Continuous AI detection monitoring activated"
+        }
+      }
+    },
+    "ai_reasoning": {
+      "chat": {
+        "method": "POST",
+        "url": "/v1/chat",
+        "description": "AI reasoning chat interface",
+        "request_body": {
+          "message": "What threats do you detect in my network?"
+        },
+        "response": {
+          "response": "Based on my analysis, I detect potential threats requiring immediate attention.",
+          "model": "cybersec-ai",
+          "confidence": 0.92
+        }
+      }
+    },
+    "network": {
+      "topology": {
+        "method": "GET",
+        "url": "/network-topology",
+        "description": "Get network topology",
+        "response": {
+          "total_endpoints": 5,
+          "zones": {
+            "internal": [
+              {
+                "id": "ep-001",
+                "hostname": "WIN-DC-01",
+                "ip": "10.0.0.10",
+                "importance": "critical"
+              }
+            ],
+            "dmz": [
+              {
+                "id": "ep-003",
+                "hostname": "LNX-WEB-01", 
+                "ip": "10.0.0.30",
+                "importance": "high"
+              }
+            ]
+          },
+          "critical_assets": ["ep-001", "ep-002", "ep-003", "ep-004"]
+        }
+      },
+      "endpoints": {
+        "method": "GET",
+        "url": "/endpoints",
+        "description": "List all registered endpoints",
+        "response": [
+          {
+            "id": "ep-001",
+            "hostname": "WIN-DC-01",
+            "ip": "10.0.0.10",
+            "os": "Windows Server 2019",
+            "status": "online",
+            "importance": "critical"
+          }
+        ]
+      }
+    },
+    "dashboard": {
+      "executive": {
+        "method": "GET",
+        "url": "/dashboard/executive",
+        "description": "Executive dashboard data",
+        "response": {
+          "ai_status": {
+            "attack_agent": "active",
+            "detection_agent": "active",
+            "last_simulation": "2 hours ago",
+            "threats_prevented": 47
+          },
+          "metrics": {
+            "total_threats_blocked": 1532,
+            "ai_detections": 892,
+            "ml_accuracy": 94.7,
+            "active_incidents": 2
+          }
+        }
+      }
+    },
+    "client_agents": {
+      "register": {
+        "method": "POST",
+        "url": "/agent/register",
+        "description": "Register new client agent",
+        "request_body": {
+          "hostname": "WIN-CLIENT-01",
+          "ip": "10.0.0.200",
+          "mac": "00:11:22:33:44:AA",
+          "os_type": "Windows",
+          "os_version": "11",
+          "capabilities": ["logs", "execute"],
+          "zone": "internal",
+          "importance": "medium"
+        },
+        "response": {
+          "success": true,
+          "endpoint_id": "ep_87654321",
+          "tenant": "codegrey"
+        }
+      },
+      "send_logs": {
+        "method": "POST",
+        "url": "/agent/logs",
+        "description": "Send logs from client agent",
+        "request_body": {
+          "endpoint_id": "ep_87654321",
+          "logs": [
+            {
+              "type": "security",
+              "level": "warning",
+              "message": "Failed login attempt",
+              "timestamp": "2025-09-25T09:30:00Z",
+              "source": "Windows Security Log"
+            }
+          ]
+        },
+        "response": {
+          "success": true,
+          "received": 1
+        }
+      },
+      "heartbeat": {
+        "method": "POST",
+        "url": "/agent/heartbeat",
+        "description": "Agent heartbeat",
+        "request_body": {
+          "endpoint_id": "ep_87654321"
+        },
+        "response": {
+          "success": true,
+          "commands": []
+        }
+      }
+    },
+    "software_download": {
+      "list": {
+        "method": "GET",
+        "url": "/software-download",
+        "description": "Get available client agents",
+        "response": [
+          {
+            "id": 1,
+            "name": "Windows Agent",
+            "version": "2.0",
+            "downloadUrl": "/downloads/windows-agent.exe",
+            "description": "Windows client agent for log collection and command execution"
+          },
+          {
+            "id": 2,
+            "name": "Linux Agent", 
+            "version": "2.0",
+            "downloadUrl": "/downloads/linux-agent.tar.gz",
+            "description": "Linux client agent for log collection and command execution"
+          }
+        ]
+      }
+    },
+    "multitenancy": {
+      "tenant_health": {
+        "method": "GET",
+        "url": "/t/{tenant_name}/health",
+        "description": "Tenant-specific health check",
+        "example_url": "/t/codegrey/health",
+        "response": {
+          "status": "healthy",
+          "tenant": "codegrey",
+          "phantom_strike": true,
+          "guardian_alpha": true,
+          "continuous_detection": true,
+          "endpoints": 5
+        }
+      }
+    }
+  },
+  "workflow_examples": {
+    "complete_attack_workflow": {
+      "description": "Complete attack workflow with PhantomStrike AI",
+      "steps": [
+        {
+          "step": 1,
+          "action": "Start attack workflow",
+          "endpoint": "POST /langgraph/attack/start",
+          "payload": {
+            "user_request": "Execute APT simulation on critical infrastructure"
+          }
+        },
+        {
+          "step": 2,
+          "action": "Review generated scenario",
+          "note": "PhantomStrike AI analyzes network topology and generates attack scenarios"
+        },
+        {
+          "step": 3,
+          "action": "Approve attack execution",
+          "endpoint": "POST /langgraph/attack/{scenario_id}/approve"
+        },
+        {
+          "step": 4,
+          "action": "Monitor execution",
+          "note": "Golden images created, attack executed, results collected"
+        },
+        {
+          "step": 5,
+          "action": "Restore systems",
+          "endpoint": "POST /langgraph/attack/{scenario_id}/restore"
+        }
+      ]
+    },
+    "detection_workflow": {
+      "description": "Continuous detection with GuardianAlpha AI",
+      "process": [
+        "Client agents send logs continuously",
+        "GuardianAlpha AI parses and analyzes logs",
+        "ML models detect anomalies",
+        "LLM provides threat classification",
+        "AI reasoning gives final verdict",
+        "Only non-benign threats shown to users"
+      ]
+    }
+  },
+  "integration_notes": {
+    "cors": "Enabled for all origins",
+    "content_type": "application/json",
+    "error_handling": "Standard HTTP status codes",
+    "rate_limiting": "Not implemented",
+    "websockets": "Not implemented (use polling for real-time data)"
+  }
+}

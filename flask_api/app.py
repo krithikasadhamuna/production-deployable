@@ -1,5 +1,6 @@
+
 """
-🚀 CodeGrey SOC - Flask API Server
+CodeGrey SOC - Flask API Server
 Complete implementation of AI-driven SOC backend APIs
 """
 
@@ -29,6 +30,16 @@ from routes.ai_attack import ai_attack_bp
 from routes.user_agent_management import user_agent_bp
 from routes.user_attack_control import user_attack_bp
 from routes.frontend_apis import frontend_bp
+from routes.adaptive_attacks import adaptive_attacks_bp
+from routes.agent_enhanced_tracking import agent_tracking_bp
+from routes.agent_provisioning import agent_provision_bp
+from routes.dashboard import dashboard_bp
+from routes.langgraph_attack_api import langgraph_attack_bp
+from routes.langgraph_chat import langgraph_bp
+from routes.langgraph_detection_api import langgraph_detection_bp
+from routes.langgraph_workflows import langgraph_workflows_bp
+from routes.mitre_attack_control import mitre_attack_bp
+from routes.simple_agent_auth import simple_auth_bp
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend access
@@ -223,7 +234,7 @@ def init_database():
     
     conn.commit()
     conn.close()
-    print("✅ Database initialized successfully")
+    print("Database initialized successfully")
 
 # Authentication decorator
 def require_auth(f):
@@ -276,7 +287,7 @@ def internal_error(error):
     }), 500
 
 # Health check endpoint
-@app.route('/health', methods=['GET'])
+@app.route('/api/backend/health', methods=['GET'])
 def health_check():
     return jsonify({
         'success': True,
@@ -286,50 +297,60 @@ def health_check():
     })
 
 # Root endpoint
-@app.route('/', methods=['GET'])
+@app.route('/api/backend/', methods=['GET'])
 def root():
     return jsonify({
         'success': True,
         'message': 'CodeGrey SOC API Server',
         'version': '2.1.0',
         'endpoints': {
-            'agents': '/api/agents',
-            'attacks': '/api/attack_scenarios',
-            'detections': '/api/detections/live',
-            'reasoning': '/api/v1/chat',
-            'network': '/api/network/topology',
-            'commands': '/api/agents/{agent_id}/command',
-            'system': '/api/system/status',
-            'organizations': '/api/organizations'
+            'agents': '/api/backend/agents',
+            'attacks': '/api/backend/attack_scenarios',
+            'detections': '/api/backend/detections/live',
+            'reasoning': '/api/backend/v1/chat',
+            'network': '/api/backend/network/topology',
+            'commands': '/api/backend/agents/{agent_id}/command',
+            'system': '/api/backend/system/status',
+            'organizations': '/api/backend/organizations'
         }
     })
 
 # Register blueprints
-app.register_blueprint(agents_bp, url_prefix='/api')
-app.register_blueprint(attacks_bp, url_prefix='/api')
-app.register_blueprint(detections_bp, url_prefix='/api')
-app.register_blueprint(reasoning_bp, url_prefix='/api')
-app.register_blueprint(network_bp, url_prefix='/api')
-app.register_blueprint(commands_bp, url_prefix='/api')
-app.register_blueprint(system_bp, url_prefix='/api')
-app.register_blueprint(organizations_bp, url_prefix='/api')
-app.register_blueprint(testing_bp, url_prefix='/api')
-app.register_blueprint(user_management_bp, url_prefix='/api')
-app.register_blueprint(network_topology_bp, url_prefix='/api')
-app.register_blueprint(agent_comm_bp, url_prefix='/api')
-app.register_blueprint(ai_attack_bp, url_prefix='/api')
-app.register_blueprint(user_agent_bp, url_prefix='/api')
-app.register_blueprint(user_attack_bp, url_prefix='/api')
-app.register_blueprint(frontend_bp)  # Frontend APIs at root level
+app.register_blueprint(agents_bp, url_prefix='/api/backend')
+app.register_blueprint(attacks_bp, url_prefix='/api/backend')
+app.register_blueprint(detections_bp, url_prefix='/api/backend')
+app.register_blueprint(reasoning_bp, url_prefix='/api/backend')
+app.register_blueprint(network_bp, url_prefix='/api/backend')
+app.register_blueprint(commands_bp, url_prefix='/api/backend')
+app.register_blueprint(system_bp, url_prefix='/api/backend')
+app.register_blueprint(organizations_bp, url_prefix='/api/backend')
+app.register_blueprint(testing_bp, url_prefix='/api/backend')
+app.register_blueprint(user_management_bp, url_prefix='/api/backend')
+app.register_blueprint(network_topology_bp, url_prefix='/api/backend')
+app.register_blueprint(agent_comm_bp, url_prefix='/api/backend')
+app.register_blueprint(ai_attack_bp, url_prefix='/api/backend')
+app.register_blueprint(user_agent_bp, url_prefix='/api/backend')
+app.register_blueprint(user_attack_bp, url_prefix='/api/backend')
+app.register_blueprint(frontend_bp, url_prefix='/api/backend')  # Frontend APIs under backend prefix
+app.register_blueprint(adaptive_attacks_bp, url_prefix='/api/backend')
+app.register_blueprint(agent_tracking_bp, url_prefix='/api/backend')
+app.register_blueprint(agent_provision_bp, url_prefix='/api/backend')
+app.register_blueprint(dashboard_bp, url_prefix='/api/backend')
+app.register_blueprint(langgraph_attack_bp, url_prefix='/api/backend')
+app.register_blueprint(langgraph_bp, url_prefix='/api/backend')
+app.register_blueprint(langgraph_detection_bp, url_prefix='/api/backend')
+app.register_blueprint(langgraph_workflows_bp, url_prefix='/api/backend')
+app.register_blueprint(mitre_attack_bp, url_prefix='/api/backend')
+app.register_blueprint(simple_auth_bp, url_prefix='/api/backend')
 
 if __name__ == '__main__':
     # Initialize database on startup
     init_database()
     
     # Start Flask development server
-    print("🚀 Starting CodeGrey SOC API Server...")
-    print("📊 API Documentation available at: https://dev.codegrey.ai:443")
-    print("🔐 All endpoints require Bearer token authentication")
+    print("Starting CodeGrey SOC API Server...")
+    print("API Documentation available at: https://dev.codegrey.ai:443")
+    print("All endpoints require Bearer token authentication")
     
     app.run(
         host='0.0.0.0',

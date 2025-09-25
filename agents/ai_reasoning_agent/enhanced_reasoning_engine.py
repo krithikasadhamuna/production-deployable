@@ -239,7 +239,7 @@ Use `status {execution.execution_id}` to monitor progress.
                     for dc in network_context.domain_controllers[:3]:  # Show first 3
                         response += f"• {dc['hostname']} ({dc['ip_address']}) - Zone: {dc['security_zone']}\n"
                 else:
-                    response += "\n⚠️ No domain controllers detected in the network."
+                    response += "\nWARNING: No domain controllers detected in the network."
             
             if 'high value' in query.lower() or 'hvt' in query.lower():
                 if network_context.high_value_targets:
@@ -247,7 +247,7 @@ Use `status {execution.execution_id}` to monitor progress.
                     for hvt in network_context.high_value_targets[:5]:  # Show first 5
                         response += f"• {hvt['hostname']} ({hvt['network_element_type']}) - {hvt['security_zone']}\n"
                 else:
-                    response += "\n⚠️ No high-value targets identified."
+                    response += "\nWARNING: No high-value targets identified."
             
             return {
                 'success': True,
@@ -372,7 +372,7 @@ Use `status {execution.execution_id}` to monitor progress.
                     success = await self.attack_orchestrator.stop_execution(execution_id)
                     
                     if success:
-                        response = f"🛑 **Attack Execution Stopped**\n\nExecution ID: `{execution_id}`\nStatus: Stopped"
+                        response = f"STOP **Attack Execution Stopped**\n\nExecution ID: `{execution_id}`\nStatus: Stopped"
                     else:
                         response = f"Could not stop execution `{execution_id}`. It may have already completed or doesn't exist."
                 else:
@@ -574,11 +574,11 @@ reference MITRE ATT&CK framework where appropriate.
             if response.status_code == 200:
                 return response.json().get('response', 'Analysis unavailable - AI model error')
             else:
-                return f"⚠️ AI analysis temporarily unavailable (HTTP {response.status_code})"
+                return f"WARNING: AI analysis temporarily unavailable (HTTP {response.status_code})"
                 
         except Exception as e:
             logger.warning(f"AI analysis failed: {e}")
-            return "⚠️ AI analysis temporarily unavailable. Please try again later."
+            return "WARNING: AI analysis temporarily unavailable. Please try again later."
 
 # Global instance for production use
 enhanced_reasoning_engine = EnhancedReasoningEngine()

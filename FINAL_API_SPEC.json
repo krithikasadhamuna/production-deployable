@@ -1,0 +1,282 @@
+{
+  "platform": "CodeGrey AI-Driven SOC Platform",
+  "base_url": "http://dev.codegrey.ai/api/backend",
+  "version": "3.0",
+  "authentication": {
+    "method": "API Key",
+    "header": "X-API-Key",
+    "default_key": "api_codegrey_2024"
+  },
+  "endpoints": {
+    "software_download": {
+      "method": "GET",
+      "url": "/software-download",
+      "description": "Get available client agents for download",
+      "response_structure": [
+        {
+          "id": 1,
+          "name": "windows",
+          "version": "2024.1.3",
+          "description": "Windows endpoint agent with real-time monitoring, behavioral analysis, and AI-powered threat detection.",
+          "fileName": "CodeGrey AI Endpoint Agent",
+          "downloadUrl": "https://dev-codegrey.s3.ap-south-1.amazonaws.com/windows.zip",
+          "os": "Windows",
+          "architecture": "asd",
+          "minRamGB": 45,
+          "minDiskMB": 60,
+          "configurationCmd": "codegrey-agent.exe --configure --server=https://os.codegrey.ai --token=YOUR_API_TOKEN",
+          "systemRequirements": [
+            "Windows 10/11 (64-bit)",
+            "Administrator privileges",
+            "4 GB RAM",
+            "500 MB disk space"
+          ]
+        },
+        {
+          "id": 2,
+          "name": "linux",
+          "version": "2024.1.3",
+          "description": "Linux endpoint agent with advanced process monitoring, network analysis, and ML-based anomaly detection.",
+          "fileName": "CodeGrey AI Endpoint Agent",
+          "downloadUrl": "https://dev-codegrey.s3.ap-south-1.amazonaws.com/linux.zip",
+          "os": "Linux",
+          "architecture": "asd",
+          "minRamGB": 45,
+          "minDiskMB": 60,
+          "configurationCmd": "sudo codegrey-agent configure --server https://os.codegrey.ai --token YOUR_API_TOKEN",
+          "systemRequirements": [
+            "Ubuntu 18.04+ / CentOS 7+ / RHEL 8+",
+            "Root access",
+            "2 GB RAM",
+            "300 MB disk space"
+          ]
+        },
+        {
+          "id": 3,
+          "name": "macos",
+          "version": "2024.1.3",
+          "description": "macOS endpoint agent with privacy-focused monitoring, XProtect integration, and intelligent threat correlation.",
+          "fileName": "CodeGrey AI Endpoint Agent",
+          "downloadUrl": "https://dev-codegrey.s3.ap-south-1.amazonaws.com/macos.zip",
+          "os": "macOS",
+          "architecture": "asd",
+          "minRamGB": 45,
+          "minDiskMB": 60,
+          "configurationCmd": "sudo /usr/local/bin/codegrey-agent --configure --server=https://os.codegrey.ai --token=YOUR_API_TOKEN",
+          "systemRequirements": [
+            "macOS 11.0+",
+            "Administrator privileges",
+            "3 GB RAM",
+            "400 MB disk space"
+          ]
+        }
+      ]
+    },
+    "agents": {
+      "method": "GET",
+      "url": "/agents",
+      "description": "List AI agents (first 2 enabled by default, last 2 disabled)",
+      "response_structure": [
+        {
+          "id": "1",
+          "name": "PhantomStrike AI",
+          "type": "attack",
+          "status": "idle",
+          "location": "External Network",
+          "lastActivity": "2 mins ago",
+          "capabilities": [
+            "Email Simulation",
+            "Web Exploitation",
+            "Social Engineering",
+            "Lateral Movement",
+            "Persistence Testing"
+          ],
+          "enabled": true
+        },
+        {
+          "id": "2",
+          "name": "GuardianAlpha AI",
+          "type": "detection",
+          "status": "active",
+          "location": "SOC Infrastructure",
+          "lastActivity": "Now",
+          "capabilities": [
+            "Behavioral Analysis",
+            "Signature Detection",
+            "Threat Hunting",
+            "ML-based Detection",
+            "Anomaly Correlation"
+          ],
+          "enabled": true
+        },
+        {
+          "id": "3",
+          "name": "SentinalDeploy AI",
+          "type": "enforcement",
+          "status": "disabled",
+          "location": "Enforcement Layer",
+          "lastActivity": "Not Active",
+          "capabilities": [
+            "Automated Response",
+            "Policy Enforcement",
+            "Quarantine Actions",
+            "Network Isolation",
+            "Remediation Tasks"
+          ],
+          "enabled": false
+        },
+        {
+          "id": "4",
+          "name": "ThreatMind AI",
+          "type": "intelligence",
+          "status": "disabled",
+          "location": "Intelligence Hub",
+          "lastActivity": "Not Active",
+          "capabilities": [
+            "Threat Intelligence",
+            "IOC Correlation",
+            "Dark Web Monitoring",
+            "APT Tracking",
+            "Risk Assessment"
+          ],
+          "enabled": false
+        }
+      ]
+    },
+    "network_topology": {
+      "method": "GET",
+      "url": "/network-topology",
+      "parameters": {
+        "hierarchy": "desc|asc (optional, default: desc)"
+      },
+      "description": "Get network topology in tabular format with hierarchy support",
+      "example_url": "/network-topology?hierarchy=desc",
+      "response_structure": {
+        "nodes": [
+          {
+            "id": "internet",
+            "name": "Internet",
+            "type": "gateway",
+            "x": 10,
+            "y": 20,
+            "agents": [
+              {
+                "id": "agent-001",
+                "name": "WIN-EXEC-01",
+                "status": "online",
+                "type": "endpoint"
+              }
+            ],
+            "status": "normal",
+            "hierarchy_level": 0
+          },
+          {
+            "id": "dmz",
+            "name": "DMZ Network",
+            "type": "network",
+            "x": 30,
+            "y": 40,
+            "agents": [],
+            "status": "warning",
+            "hierarchy_level": 1
+          },
+          {
+            "id": "internal",
+            "name": "Internal Network",
+            "type": "network",
+            "x": 50,
+            "y": 60,
+            "agents": [
+              {
+                "id": "agent-002",
+                "name": "LNX-SOC-01",
+                "status": "online",
+                "type": "endpoint"
+              },
+              {
+                "id": "agent-003",
+                "name": "MAC-DEV-01",
+                "status": "offline",
+                "type": "endpoint"
+              }
+            ],
+            "status": "normal",
+            "hierarchy_level": 2
+          }
+        ],
+        "connections": [
+          {"source": "internet", "target": "dmz"},
+          {"source": "dmz", "target": "internal"}
+        ],
+        "hierarchy_order": "desc",
+        "total_agents": 3,
+        "online_agents": 2,
+        "offline_agents": 1
+      }
+    },
+    "attack_operations": {
+      "start_attack": {
+        "method": "POST",
+        "url": "/langgraph/attack/start",
+        "description": "Start PhantomStrike AI attack workflow",
+        "request_body": {
+          "user_request": "Execute APT simulation on critical infrastructure",
+          "attack_type": "apt|ransomware|insider",
+          "complexity": "simple|advanced"
+        },
+        "response": {
+          "success": true,
+          "scenario_id": "scn_12345678",
+          "scenario": {
+            "id": "scn_12345678",
+            "name": "Attack Scenario: Execute APT simulation",
+            "topology": "network_topology_object",
+            "techniques": ["T1055", "T1003", "T1021"],
+            "status": "pending_approval"
+          },
+          "network_topology": "current_topology",
+          "message": "Attack scenario generated. Awaiting approval."
+        }
+      },
+      "approve_attack": {
+        "method": "POST",
+        "url": "/langgraph/attack/{scenario_id}/approve",
+        "description": "Approve and execute attack scenario",
+        "response": {
+          "success": true,
+          "message": "Attack execution started",
+          "golden_images_created": 4,
+          "execution_id": "exec_87654321"
+        }
+      }
+    },
+    "detection_operations": {
+      "detection_status": {
+        "method": "GET",
+        "url": "/langgraph/detection/status",
+        "description": "GuardianAlpha AI detection status",
+        "response": {
+          "continuous_detection": true,
+          "guardian_alpha_status": "active",
+          "detections_today": 15
+        }
+      },
+      "recent_detections": {
+        "method": "GET",
+        "url": "/langgraph/detection/recent",
+        "description": "Recent threat detections",
+        "response": [
+          {
+            "id": "det_12345",
+            "timestamp": "2025-09-25T09:30:00Z",
+            "threat_type": "Suspicious PowerShell",
+            "severity": "HIGH",
+            "confidence": 0.89,
+            "verdict": "malicious",
+            "reasoning": "AI detected threat pattern"
+          }
+        ]
+      }
+    }
+  }
+}

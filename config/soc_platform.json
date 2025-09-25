@@ -1,0 +1,68 @@
+{
+  "environment": "production",
+  "platform_name": "CodeGrey AI-Driven SOC Platform",
+  "version": "3.0.0",
+  "database": {
+    "main_db": "soc_main.db",
+    "topology_db": "network_topology.db",
+    "logs_db": "agent_logs.db",
+    "users_db": "soc_users.db",
+    "backup_interval": 3600
+  },
+  "server": {
+    "host": "0.0.0.0",
+    "port": 8080,
+    "debug": false,
+    "workers": 4,
+    "max_content_length": 16777216
+  },
+  "security": {
+    "jwt_secret_key": "",
+    "api_key_length": 32,
+    "session_timeout": 28800,
+    "max_login_attempts": 5,
+    "lockout_duration": 1800
+  },
+  "ai_agents": {
+    "ollama_host": "http://localhost:11434",
+    "default_model": "cybersec-ai",
+    "fallback_model": "llama3.2:3b",
+    "max_tokens": 2048,
+    "temperature": 0.7,
+    "detection_workers": 2
+  },
+  "network": {
+    "scan_interval": 300,
+    "heartbeat_timeout": 300,
+    "max_endpoints": 10000,
+    "topology_update_interval": 60
+  },
+  "storage": {
+    "golden_images_path": "golden_images",
+    "logs_path": "logs",
+    "checkpoints_path": "checkpoints",
+    "max_log_size": 104857600,
+    "log_retention_days": 30
+  },
+  "external_services": {
+    "s3_bucket": "dev-codegrey",
+    "s3_region": "ap-south-1",
+    "download_base_url": "https://dev-codegrey.s3.ap-south-1.amazonaws.com",
+    "client_server_url": "http://dev.codegrey.ai/api/backend"
+  },
+  "ml_models": {
+    "anomaly_detection": {
+      "enabled": true,
+      "confidence_threshold": 0.8
+    },
+    "malware_classification": {
+      "enabled": true,
+      "confidence_threshold": 0.9
+    }
+  },
+  "performance": {
+    "log_processing_batch_size": 1000,
+    "detection_queue_max_size": 10000,
+    "cache_ttl": 300
+  }
+}

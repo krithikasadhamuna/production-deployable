@@ -1,22 +1,47 @@
-﻿# Core Flask
+﻿# SOC Platform Backend Requirements
+# Core web framework
 flask==2.3.3
 flask-cors==4.0.0
-werkzeug==2.3.7
 
 # Database
-aiosqlite==0.19.0
+sqlite3
 
-# Authentication
-pyjwt==2.8.0
-bcrypt==4.1.2
+# Authentication & Security
+bcrypt==4.0.1
+PyJWT==2.8.0
+
+# AI & ML
+scikit-learn==1.3.0
+numpy==1.24.3
+pandas==2.0.3
+
+# LangGraph & LangChain (optional - for AI agents)
+langgraph>=0.6.0
+langchain>=0.1.0
+langchain-community>=0.0.20
+
+# HTTP requests
+requests==2.31.0
+httpx==0.25.0
+
+# Async support
+asyncio
+aiohttp==3.8.5
+
+# Logging & Monitoring
+structlog==23.1.0
+
+# Configuration
+pydantic==2.4.2
 
 # Utilities
-python-dotenv==1.0.0
-psutil==5.9.5
-requests==2.31.0
 python-dateutil==2.8.2
+pathlib
+dataclasses
+typing-extensions==4.7.1
 
-# AI/ML (Optional - install if available)
-# langgraph==0.1.0
-# langchain==0.3.0
-# langchain-community==0.3.0
+# Development tools (optional)
+pytest==7.4.0
+pytest-asyncio==0.21.1
+black==23.7.0
+flake8==6.0.0
