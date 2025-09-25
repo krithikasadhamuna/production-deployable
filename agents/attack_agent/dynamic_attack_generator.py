@@ -383,7 +383,9 @@ class DynamicAttackGenerator:
             from langchain_openai import ChatOpenAI
             from langraph.config import OPENAI_API_KEY
             
-            llm = ChatOpenAI(api_key=OPENAI_API_KEY, model="gpt-4o")
+            # Use cybersec-ai through Ollama instead
+            from langchain_community.chat_models import ChatOllama
+            llm = ChatOllama(model="cybersec-ai", base_url="http://localhost:11434")
             
             prompt = f"""
 You are a cybersecurity expert specializing in MITRE ATT&CK techniques.

@@ -1,0 +1,35 @@
+=====================================
+   CODEGREY AGENT - 2 MINUTE SETUP
+=====================================
+
+STEP 1: GET YOUR KEY
+--------------------
+1. Go to: https://dev.codegrey.ai
+2. Login with your account
+3. Click your name (top right) -> API Keys
+4. Copy the key that starts with "usr-api-"
+
+STEP 2: INSTALL
+---------------
+WINDOWS:
+  - Extract codegrey-agent-windows.zip
+  - Right-click INSTALL.bat -> Run as Administrator
+  - Paste your key, press Enter
+
+LINUX:
+  - Extract codegrey-agent-linux.zip
+  - Run: sudo ./install.sh
+  - Paste your key, press Enter
+
+MAC:
+  - Extract codegrey-agent-macos.zip
+  - Double-click install.command
+  - Paste your key, press Enter
+
+DONE!
+-----
+The agent will appear in your dashboard in 60 seconds.
+
+Need help? Contact your IT administrator.
+
+=====================================

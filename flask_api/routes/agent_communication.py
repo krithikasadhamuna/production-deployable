@@ -10,6 +10,7 @@ import json
 import uuid
 from functools import wraps
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 agent_comm_bp = Blueprint('agent_comm', __name__)
@@ -27,17 +28,55 @@ def require_auth(f):
         
         # Validate API key
         token = auth_header.split(' ')[1]
+        
+        # Check static keys first (for testing)
         VALID_API_KEYS = {
             "soc-prod-fOpXLgHLmN66qvPgU5ZXDCj1YVQ9quiwWcNT6ECvPBs": "admin",
-            "soc-agents-2024": "agent"
+            "soc-agents-2024": "agent"  # Legacy support
         }
         
-        if token not in VALID_API_KEYS:
-            return jsonify({
-                'success': False,
-                'error': 'Invalid API token',
-                'error_code': 'UNAUTHORIZED'
-            }), 401
+        if token in VALID_API_KEYS:
+            request.api_role = VALID_API_KEYS[token]
+            request.api_key = token
+            return f(*args, **kwargs)
+        
+        # Check deployment API keys (soc-dep-*) from database
+        if token.startswith('soc-dep-'):
+            try:
+                # Try to get tenant from request data
+                tenant = 'codegrey'  # Default
+                if request.json and 'tenant' in request.json:
+                    tenant = request.json['tenant']
+                
+                # Check in tenant database
+                db_path = f'tenant_databases/{tenant}.db'
+                if os.path.exists(db_path):
+                    conn = sqlite3.connect(db_path)
+                    cursor = conn.cursor()
+                    
+                    # Check if API key exists and is active
+                    cursor.execute('''
+                        SELECT deployment_id, created_by, status 
+                        FROM agent_api_keys 
+                        WHERE api_key = ? AND status = 'active'
+                    ''', (token,))
+                    
+                    result = cursor.fetchone()
+                    conn.close()
+                    
+                    if result:
+                        request.api_role = 'agent'
+                        request.api_key = token
+                        request.deployment_id = result[0]
+                        return f(*args, **kwargs)
+            except Exception as e:
+                logger.error(f"API key validation error: {e}")
+        
+        return jsonify({
+            'success': False,
+            'error': 'Invalid API token',
+            'error_code': 'UNAUTHORIZED'
+        }), 401
             
         return f(*args, **kwargs)
     return decorated_function
@@ -184,57 +223,37 @@ def receive_agent_logs(agent_id):
     """
     POST /api/agents/{agent_id}/logs
     Receive logs/events from agent
+    Handles both 'events' and 'logs' formats
     """
     try:
         data = request.get_json()
         
-        if not data or 'events' not in data:
+        # Import log processor
+        from flask_api.core.log_processor import LogProcessor
+        log_processor = LogProcessor()
+        
+        # Process logs regardless of format
+        if not data:
             return jsonify({
                 "success": False,
-                "error": "Missing events data",
-                "error_code": "INVALID_DATA"
+                "error": "No data provided",
+                "error_code": "NO_DATA"
             }), 400
         
-        conn = get_db_connection()
-        cursor = conn.cursor()
+        # Use the comprehensive log processor
+        result = log_processor.process_incoming_logs(agent_id, data)
         
-        # Process each event
-        processed = 0
-        for event in data['events']:
-            try:
-                event_id = event.get('id', f"evt_{uuid.uuid4().hex[:12]}")
-                event_type = event.get('type', 'unknown')
-                severity = event.get('severity', 'info')
-                timestamp = event.get('timestamp', datetime.now(timezone.utc).isoformat())
-                event_data = event.get('data', {})
-                
-                # Store in detections table for threat analysis
-                cursor.execute("""
-                    INSERT INTO detections 
-                    (id, agent_id, type, severity, timestamp, data, status)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                """, (event_id, agent_id, event_type, severity, 
-                      timestamp, json.dumps(event_data), 'pending'))
-                
-                processed += 1
-                
-                # Check if this is a critical event that needs immediate attention
-                if severity in ['critical', 'high']:
-                    logger.warning(f"Critical event from agent {agent_id}: {event_type}")
-                    
-            except Exception as e:
-                logger.error(f"Error processing event: {e}")
-                continue
+        logger.info(f"Processed {result['processed']} logs from agent {agent_id}")
         
-        conn.commit()
-        conn.close()
-        
-        logger.info(f"Received {processed} events from agent {agent_id}")
+        # Alert if high severity logs detected
+        if result['high_severity'] > 0:
+            logger.warning(f"High severity logs detected from agent {agent_id}: {result['high_severity']} events")
         
         return jsonify({
             "success": True,
-            "processed": processed,
-            "message": f"Processed {processed} events successfully"
+            "processed": result['processed'],
+            "high_severity": result['high_severity'],
+            "message": f"Processed {result['processed']} logs successfully"
         })
         
     except Exception as e:

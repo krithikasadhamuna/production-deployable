@@ -694,3 +694,4 @@ def create_default_topology(conn):
     conn.commit()
     
     return default_nodes
+

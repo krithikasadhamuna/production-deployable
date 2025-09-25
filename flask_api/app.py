@@ -28,6 +28,7 @@ from routes.agent_communication import agent_comm_bp
 from routes.ai_attack import ai_attack_bp
 from routes.user_agent_management import user_agent_bp
 from routes.user_attack_control import user_attack_bp
+from routes.frontend_apis import frontend_bp
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend access
@@ -319,6 +320,7 @@ app.register_blueprint(agent_comm_bp, url_prefix='/api')
 app.register_blueprint(ai_attack_bp, url_prefix='/api')
 app.register_blueprint(user_agent_bp, url_prefix='/api')
 app.register_blueprint(user_attack_bp, url_prefix='/api')
+app.register_blueprint(frontend_bp)  # Frontend APIs at root level
 
 if __name__ == '__main__':
     # Initialize database on startup

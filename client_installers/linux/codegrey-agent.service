@@ -1,0 +1,23 @@
+[Unit]
+Description=CodeGrey Security Agent
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/codegrey
+ExecStart=/usr/bin/python3 /opt/codegrey/linux_agent.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Security settings
+PrivateTmp=yes
+NoNewPrivileges=false
+ReadWritePaths=/opt/codegrey /etc/codegrey
+
+[Install]
+WantedBy=multi-user.target
